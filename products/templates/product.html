@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Product</title>
+</head>
+<body>
+    <h1>Create a New Product</h1>
+
+    <form id="product-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <label for="name">Product Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" rows="4" cols="50" required></textarea><br><br>
+        
+        <label for="category">Category:</label>
+        <select name="category" id="category" required>
+            <option value="">Select Category</option>
+            {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+        </select><br><br>
+    
+    
+     
+        
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" step="0.01" required><br><br>
+        
+        <label for="discount_price">Discount Price (optional):</label>
+        <input type="number" id="discount_price" name="discount_price" step="0.01"><br><br>
+        
+        <label for="rating">Rating (optional):</label>
+        <input type="number" id="rating" name="rating" step="0.1" min="0" max="5"><br><br>
+        
+        <label for="stock">Stock Quantity:</label>
+        <input type="number" id="stock" name="stock" min="0" required><br><br>
+        
+        <label for="image">Product Image (optional):</label>
+        <input type="file" id="image" name="image"><br><br>
+        
+        <label for="is_active">Is Active:</label>
+        <input type="checkbox" id="is_active" name="is_active" checked><br><br>
+
+        <button type="submit">Create Product</button>
+    </form>
+
+    <div id="response-message"></div>
+
+    <script>
+        document.getElementById('product-form').addEventListener('submit', function(event) {
+            event.preventDefault();  
+        
+            let formData = new FormData(document.getElementById('product-form'));
+    
+            // Get the selected category
+            const category = document.querySelector('select[name="category"]').value;
+            formData.set('category', category);
+    
+            // Send the form data via fetch
+            fetch("/products/create/", {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => {
+                
+                if (!response.ok) {
+                  
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();  
+            })
+            .then(data => {
+                let messageElement = document.getElementById('response-message');
+                if (data.id) {
+                    messageElement.innerHTML = `<p style="color: green;">Product created successfully!</p>`;
+                } else if (data.errors) {
+                    messageElement.innerHTML = `<p style="color: red;">Error: ${JSON.stringify(data.errors)}</p>`;
+                } else {
+                    messageElement.innerHTML = `<p style="color: red;">Unexpected error occurred!</p>`;
+                }
+            })
+            .catch(error => {
+                
+                document.getElementById('response-message').innerHTML = `<p style="color: red;">An error occurred: ${error.message}</p>`;
+            });
+        });
+    </script>
+</body>
+</html>    
+       
