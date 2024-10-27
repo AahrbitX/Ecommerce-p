@@ -1,4 +1,4 @@
 .env
-myenv
-__pycache__
-migrations
+myenv/
+__pycache__/
+migrations/
