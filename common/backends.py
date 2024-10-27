@@ -1,20 +1,35 @@
 from django.contrib.auth.backends import BaseBackend
-from common.models import CustomUser
+from .models import CustomUser
+import logging
+ 
 
-class MobileBackend(BaseBackend):
-    def authenticate(self, request, username=None, mobile_number=None, password=None, **kwargs):
-        try:
-            user = CustomUser.objects.get(mobile_number=mobile_number)
-            if user.check_password(password):
-                return user
-        except CustomUser.DoesNotExist:
-            return None   
-        except Exception as e: 
-            print(f"Error in authentication: {str(e)}")
+class EmailBackend(BaseBackend):
+    def authenticate(self, request, email=None, password=None, **kwargs):
+        # Check if email and password are provided
+        if not email or not password:
+            
             return None
+
+        try:
+            # Attempt to retrieve the user by email
+            user = CustomUser.objects.get(email=email)
+        except CustomUser.DoesNotExist:
+           
+            return None
+
+        # Check password validity and if the user is active
+        if user.check_password(password) and self.user_can_authenticate(user):
+            return user
+
+         
+        return None
+
+    def user_can_authenticate(self, user):
+        return user.is_active
 
     def get_user(self, user_id):
         try:
-            return CustomUser.objects.get(user_id=user_id)
+            return CustomUser.objects.get(pk=user_id)
         except CustomUser.DoesNotExist:
+            
             return None
