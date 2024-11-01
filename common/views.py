@@ -34,14 +34,15 @@ class LoginView(APIView):
             }, status=status.HTTP_200_OK)
         return Response({"detail": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
 
-
+ 
+    
 #user dashboard
 class CurrentUserView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def get(self,request,user_id):
-
-        user=CustomUser.objects.get(user_id=user_id)
+    def get(self, request):
+        user = request.user  
         return Response({
-            'user': str(user.user_id),
+            'user_id': str(user.user_id), 
+            'email': user.email,
         })

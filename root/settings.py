@@ -127,11 +127,11 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),   
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),      
     'ROTATE_REFRESH_TOKENS': True,
+    # 'AUTH_HEADER_TYPES': ('Bearer',),
+    # 'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+    'USER_ID_FIELD': 'user_id',
+    'USER_ID_CLAIM': 'user_id',
      
 }
 
-
-SIMPLE_JWT = {
-    'USER_ID_FIELD': 'user_id',
-    'USER_ID_CLAIM': 'user_id',
-}
+  

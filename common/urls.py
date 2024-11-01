@@ -4,5 +4,6 @@ urlpatterns=[
 
     path('signup/',SignupView.as_view(),name='signup'),
     path('login/',LoginView.as_view(),name='login'),
-    path('currentuser/<uuid:user_id>/',CurrentUserView.as_view(),name='currentuser')
+     
+     path('currentuser/', CurrentUserView.as_view(), name='current-user'),
 ]
