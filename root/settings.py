@@ -110,12 +110,12 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/') 
 
 
+AUTH_USER_MODEL = 'common.CustomUser'
+ 
+
 AUTHENTICATION_BACKENDS = [
-     'common.backends.MobileBackend',
-   
-    ]
-
-
+    'common.backends.EmailBackend',       
+    'django.contrib.auth.backends.ModelBackend',   ]
  
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (

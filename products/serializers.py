@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from products.models import *
-from products.handlers import *
+from products.handlers import ProductHandler
 
 
 
@@ -16,7 +16,7 @@ class ProductSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Product
-        fields = ['uuid', 'name', 'description', 'price', 'discount_price', 'category', 'rating', 'stock', 'image', 'is_active', 'created_at', 'updated_at']
+        fields = ['product_id', 'name', 'description', 'price', 'discount_price', 'category', 'rating', 'stock', 'image', 'status', 'created_at', 'updated_at']
     
     def create(self, validated_data):
         

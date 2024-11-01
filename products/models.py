@@ -25,9 +25,9 @@ class Product(DateAbstract):
         (DELETED, 'deleted')
     )
 
-    uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)  
+    product_id = models.UUIDField(default=uuid.uuid4,primary_key=True, editable=False, unique=True)  
     name = models.CharField(max_length=255)
-    description = models.TextField()
+    description = models.TextField(null=True,blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category')
     
     
