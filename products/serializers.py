@@ -25,4 +25,11 @@ class ProductSerializer(serializers.ModelSerializer):
 
         return handlers.create_product(validated_data)
 
+class CartSerializer(serializers.ModelSerializer):
+    total_price = serializers.ReadOnlyField()   
+
+    class Meta:
+        model = Cart
+        fields = ['product_id', 'quantity', 'created_at', 'updated_at', 'total_price']
+
  

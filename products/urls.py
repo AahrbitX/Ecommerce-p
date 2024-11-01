@@ -13,6 +13,8 @@ urlpatterns = [
        path('categories/', CategoryView.as_view(), name='category'),
 
        path('categories/<int:pk>/', CategoryView.as_view(), name='category-detail'),
+
+      path('cart/add/', CartView.as_view(), name='cart-add'),
 ]
 
 if settings.DEBUG:  

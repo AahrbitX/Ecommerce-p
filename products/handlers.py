@@ -65,3 +65,39 @@ class ProductHandler:
             return product
         except ObjectDoesNotExist:
             raise ValueError("Product with the provided ID does not exist.")
+        
+
+
+class CartHandler:
+    
+    @staticmethod
+    def add_cart(self,request):
+
+        user_id=request.data.get('user_id')
+        
+        user=get_object_or_404(CustomUser,user_id=user_id)
+        product_id=request.data.get('product_id')
+        product=get_object_or_404(Product,product_id=product_id)
+        
+        quantity=request.data.get("quantity", 1)
+        cart_item, created = Cart.objects.get_or_create(user=user,product=product)
+
+        if created:
+          cart_item.quantity = quantity
+        else:
+            cart_item.quantity += quantity
+            message = "Cart item quantity updated"
+        cart_item.save()
+        
+        response = {
+                "status": "SUCCESS",
+                "message": message,
+                "data": {
+                    "cart_item_id": cart_item.id,
+                    "product_id": cart_item.product.product_id,
+                    "product_name": cart_item.product.name,
+                    "quantity": cart_item.quantity,
+                    "user_id": cart_item.user.user_id
+                }
+            }
+        return response
