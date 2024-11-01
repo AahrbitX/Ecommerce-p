@@ -5,11 +5,13 @@
 
 #MIGRATIONS
 
-Must follow while migrating ===> Mention app name while migrations at firt else leads to migrations inconsistent issues
+Must follow while migrating ===> Mention app name while make migrations at first else leads to migrations inconsistent issues
 Do:
 python manage.py makemigrations common
 
 python manage.py migrate common 
+
+following "python manage.py migrate"  to migrate admin details
 
 #MEDIA
 To store images create a media directory gloablly
