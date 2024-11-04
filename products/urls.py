@@ -5,14 +5,16 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-     # path('signup/', SignupAPIView.as_view(), name='signup'),
-     # path('login/', LoginAPIView.as_view(), name='login'),
      
-     path('create/', ProductCreateAPIView.as_view(), name='product-create-list'),
+       path('products/', ProductAPIView.as_view(), name='product-list'),
       
-     path('createm/', product_form, name='create_product'),
-     
-     path('products/<int:product_id>/', ProductCreateAPIView.as_view(), name='product-detail'),
+       path('products/<uuid:product_id>/', ProductAPIView.as_view(), name='product-detail'),
+
+       path('categories/', CategoryView.as_view(), name='category'),
+
+       path('categories/<int:pk>/', CategoryView.as_view(), name='category-detail'),
+
+      path('cart/add/', CartView.as_view(), name='cart-add'),
 ]
 
 if settings.DEBUG:  

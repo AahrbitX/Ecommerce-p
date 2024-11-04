@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from products.models import *
-from products.handlers import *
+from products.handlers import ProductHandler
 
 
 
@@ -16,7 +16,7 @@ class ProductSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Product
-        fields = ['uuid', 'name', 'description', 'price', 'discount_price', 'category', 'rating', 'stock', 'image', 'is_active', 'created_at', 'updated_at']
+        fields = ['product_id', 'name', 'description', 'price', 'discount_price', 'category', 'rating', 'stock', 'image', 'status', 'created_at', 'updated_at']
     
     def create(self, validated_data):
         
@@ -24,5 +24,12 @@ class ProductSerializer(serializers.ModelSerializer):
         handlers=ProductHandler()
 
         return handlers.create_product(validated_data)
+
+class CartSerializer(serializers.ModelSerializer):
+    total_price = serializers.ReadOnlyField()   
+
+    class Meta:
+        model = Cart
+        fields = ['product_id', 'quantity', 'created_at', 'updated_at', 'total_price']
 
  
