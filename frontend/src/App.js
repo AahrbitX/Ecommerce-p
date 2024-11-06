@@ -7,7 +7,7 @@ function DataFetcher() {
 
     useEffect(() => {
         // URL of the external API or data source
-        const url = 'https://api.example.com/data';
+        const url = 'http://localhost:8000/products/products/';
 
         // Fetch data with the fetch API
         fetch(url)
