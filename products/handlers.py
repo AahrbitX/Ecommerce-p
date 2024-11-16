@@ -4,19 +4,14 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
 from products.serializers import *
  
- 
-  
-  # handlers.py
-
-from django.core.exceptions import ObjectDoesNotExist
-from .models import Product
 
 class ProductHandler:
     
     @staticmethod
     def create_product(validated_data):
+        user=validated_data.pop('user')
         category = validated_data.pop('category')
-        product = Product.objects.create(**validated_data, category=category)
+        product = Product.objects.create(**validated_data, category=category,user=user)
         return product
 
     @staticmethod
