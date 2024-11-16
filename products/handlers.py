@@ -4,19 +4,14 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
 from products.serializers import *
  
- 
-  
-  # handlers.py
-
-from django.core.exceptions import ObjectDoesNotExist
-from .models import Product
 
 class ProductHandler:
     
     @staticmethod
     def create_product(validated_data):
+        user=validated_data.pop('user_id')
         category = validated_data.pop('category')
-        product = Product.objects.create(**validated_data, category=category)
+        product = Product.objects.create(**validated_data, category=category,user_id=user)
         return product
 
     @staticmethod
@@ -48,30 +43,43 @@ class ProductHandler:
 
     @staticmethod
     def update_product(product_id, update_data):
-        try:
-            product = Product.objects.get(product_id=product_id)
-            
-            if 'category' in update_data:
-                category_id = update_data.pop('category')
-                try:
-                    category_instance = Category.objects.get(id=category_id)
-                    update_data['category'] = category_instance
-                except Category.DoesNotExist:
-                    raise ValueError("Category with the provided ID does not exist.")
-            
-            for attr, value in update_data.items():
-                setattr(product, attr, value)
-            product.save()
-            return product
-        except ObjectDoesNotExist:
-            raise ValueError("Product with the provided ID does not exist.")
+     try:
+        # Retrieve the product by product_id
+        product = Product.objects.get(product_id=product_id)
+
+        # Handle category update if present
+        if 'category' in update_data:
+            category_id = update_data.pop('category')
+            try:
+                category_instance = Category.objects.get(id=category_id)
+                update_data['category'] = category_instance
+            except Category.DoesNotExist:
+                raise ValueError("Category with the provided ID does not exist.")
+
+        # Handle user update if user_id is provided
+        if 'user_id' in update_data:
+            user_id = update_data.pop('user_id')
+            try:
+                user_instance = CustomUser.objects.get(user_id=user_id)
+                update_data['user'] = user_instance
+            except CustomUser.DoesNotExist:
+                raise ValueError("User with the provided ID does not exist.")
+
+        # Update the remaining fields dynamically
+        for attr, value in update_data.items():
+            setattr(product, attr, value)
         
+        product.save()  # Save the updated product
+        return product
+
+     except Product.DoesNotExist:
+        raise ValueError("Product with the provided ID does not exist.")
 
 
 class CartHandler:
     
     @staticmethod
-    def add_cart(self,request):
+    def add_cart(request):
 
         user_id=request.data.get('user_id')
         
@@ -79,21 +87,21 @@ class CartHandler:
         product_id=request.data.get('product_id')
         product=get_object_or_404(Product,product_id=product_id)
         
-        quantity=request.data.get("quantity", 1)
+        quantity=request.data.get("quantity")
         cart_item, created = Cart.objects.get_or_create(user=user,product=product)
-
-        if created:
-          cart_item.quantity = quantity
+        
+        
+        if not created:
+          cart_item.quantity += int(quantity)
         else:
-            cart_item.quantity += quantity
-            message = "Cart item quantity updated"
+            cart_item.quantity = quantity
         cart_item.save()
         
         response = {
                 "status": "SUCCESS",
-                "message": message,
+               
                 "data": {
-                    "cart_item_id": cart_item.id,
+                    "cart_id": cart_item.id,
                     "product_id": cart_item.product.product_id,
                     "product_name": cart_item.product.name,
                     "quantity": cart_item.quantity,
