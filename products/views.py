@@ -28,8 +28,9 @@ class ProductAPIView(APIView):
         serializer = ProductSerializer(data=request.data)
         if serializer.is_valid():
             product = ProductHandler.create_product(serializer.validated_data)
+            product_data = ProductSerializer(product).data
             return Response(
-                {"data": product.product_id, "message": "Product created successfully!"},
+                {"data":product_data, "message": "Product created successfully!"},
                 status=status.HTTP_201_CREATED
             )
         return Response(
@@ -47,18 +48,35 @@ class ProductAPIView(APIView):
             )
 
     def patch(self, request, product_id=None):
-        try:
-            if product_id:
+     try:
+        if product_id:
+            # Attempt to update the product using the handler method
+            updated_product = ProductHandler.update_product(product_id, request.data)
 
-             updated_product = ProductHandler.update_product(product_id, request.data)
-             return Response({"status": "SUCCESS","data":updated_product.product_id}, status=status.HTTP_200_OK)
-            
-            else:
-                return Response("small error")
-        except ValueError as e:
+            # Return a response with the updated product details (or its relevant fields)
             return Response(
-                {"status": "FAILURE", "error": str(e)}, status=status.HTTP_404_NOT_FOUND
+                {"status": "SUCCESS", "data": {
+                    "product_id": updated_product.product_id,
+                    "name": updated_product.name,
+                    "price": updated_product.price,
+                    "category": updated_product.category.id,
+                    # Add other fields as needed
+                }},
+                status=status.HTTP_200_OK
             )
+        else:
+            # Provide a more meaningful error message when no product_id is provided
+            return Response(
+                {"status": "FAILURE", "error": "Product ID is required."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+    
+     except ValueError as e:
+        # Catch any ValueError from the update_product method and return a failure response
+        return Response(
+            {"status": "FAILURE", "error": str(e)},
+            status=status.HTTP_404_NOT_FOUND
+        )
 
 class CategoryView(generics.ListCreateAPIView):
     queryset = Category.objects.all()

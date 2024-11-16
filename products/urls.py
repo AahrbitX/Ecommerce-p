@@ -4,6 +4,7 @@ from products.views import *
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 urlpatterns = [
      
        path('products/', ProductAPIView.as_view(), name='product-list'),
@@ -14,7 +15,7 @@ urlpatterns = [
 
        path('categories/<int:pk>/', CategoryView.as_view(), name='category-detail'),
 
-      path('cart/add/', CartView.as_view(), name='cart-add'),
+      path('cart/', CartView.as_view(), name='cart-add'),
 ]
 
 if settings.DEBUG:  
