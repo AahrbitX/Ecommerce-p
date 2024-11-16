@@ -14,7 +14,7 @@ urlpatterns = [
 
        path('categories/<int:pk>/', CategoryView.as_view(), name='category-detail'),
 
-      path('cart/', CartView.as_view(), name='cart-add'),
+      path('cart/add/', CartView.as_view(), name='cart-add'),
 ]
 
 if settings.DEBUG:  

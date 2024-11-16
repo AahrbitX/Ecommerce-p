@@ -12,7 +12,6 @@ from rest_framework.permissions import IsAuthenticated
 
 """code follows structured pattern kindly retrack to understand"""
 class ProductAPIView(APIView):
-    permission_classes = [IsAuthenticated]
     
     def get(self, request, product_id=None):
         if product_id:
@@ -30,7 +29,7 @@ class ProductAPIView(APIView):
         if serializer.is_valid():
             product = ProductHandler.create_product(serializer.validated_data)
             return Response(
-                {"data": serializer.data, "message": "Product created successfully!"},
+                {"data": product.product_id, "message": "Product created successfully!"},
                 status=status.HTTP_201_CREATED
             )
         return Response(
@@ -49,76 +48,43 @@ class ProductAPIView(APIView):
 
     def patch(self, request, product_id=None):
         try:
-            if not product_id:
-                return Response(
-                    {"status": "FAILURE", "error": "Product ID is required."},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+            if product_id:
 
-            # Ensure request data is not empty
-            if not request.data:
-                return Response(
-                    {"status": "FAILURE", "error": "No data provided for update."},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+             updated_product = ProductHandler.update_product(product_id, request.data)
+             return Response({"status": "SUCCESS","data":updated_product.product_id}, status=status.HTTP_200_OK)
             
-
-            updated_product = ProductHandler.update_product(product_id, request.data)
-            serializer = ProductSerializer(updated_product)
-            return Response({"status": "SUCCESS", "data":serializer.data}, status=status.HTTP_200_OK)
-            
-             
+            else:
+                return Response("small error")
         except ValueError as e:
             return Response(
                 {"status": "FAILURE", "error": str(e)}, status=status.HTTP_404_NOT_FOUND
             )
-        except Exception as e:
-            # Handle unexpected errors gracefully
-            return Response(
-                {"status": "FAILURE", "error": "An unexpected error occurred."},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
 
 class CategoryView(generics.ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     
 
 class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated]
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
 
 class CartView(APIView):
-   permission_classes = [IsAuthenticated]
-
+  
    def post(self,request,*args,**kwargs):
-      
-       try:
-            
-            result = CartHandler.add_cart(request)
+       permission_classes = [IsAuthenticated]
 
-           
-            serializer = CartSerializer(result)
-
-            return Response(
-                {
-                    "data": serializer.data,
-                    "message": "Item added successfully"
-                },
-                status=status.HTTP_201_CREATED  
-            )
-       except Exception as e:
-            
-            return Response(
-                {"status": "FAILURE", "error": str(e)},
-                status=status.HTTP_400_BAD_REQUEST
-            )
        
+       result=CartHandler.add_cart(request)
+       if result["status"] == "SUCCESS":
+            return Response(
+                {"data":result,"message":"Item added successfully"}, status=status.HTTP_200_OK)
+       
+       return Response(result, status=status.HTTP_400_BAD_REQUEST)
        
    def get(self, request): 
+     permission_classes = [IsAuthenticated]
      
      user=request.user
       
@@ -140,7 +106,6 @@ class CartView(APIView):
         )
      
    def delete(self, request, *args, **kwargs):
-       
         cart_id = request.data.get("cart_id")
         
         if not cart_id:
