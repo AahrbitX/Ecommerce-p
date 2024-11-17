@@ -15,7 +15,11 @@ urlpatterns = [
 
        path('categories/<int:pk>/', CategoryView.as_view(), name='category-detail'),
 
-      path('cart/', CartView.as_view(), name='cart-add'),
+       path('cart/', CartView.as_view(), name='cart-add'),
+
+       path('address/<int:address_id>/', AddressCreateView.as_view(), name='address-detail'),
+       path('address/', AddressCreateView.as_view(), name='address-create'), 
+
 ]
 
 if settings.DEBUG:  

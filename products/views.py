@@ -5,7 +5,7 @@ from .serializers import *
 from rest_framework.response import Response
 from rest_framework import status
 from products.models import Product
-from products.handlers import ProductHandler,CartHandler
+from products.handlers import ProductHandler,CartHandler,AddressHandler
 from rest_framework.permissions import IsAuthenticated
 
  
@@ -89,9 +89,8 @@ class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class CartView(APIView):
-  
+   permission_classes = [IsAuthenticated]
    def post(self,request,*args,**kwargs):
-       permission_classes = [IsAuthenticated]
 
        
        result=CartHandler.add_cart(request)
@@ -102,8 +101,6 @@ class CartView(APIView):
        return Response(result, status=status.HTTP_400_BAD_REQUEST)
        
    def get(self, request): 
-     permission_classes = [IsAuthenticated]
-     
      user=request.user
       
      if user:
@@ -145,3 +142,85 @@ class CartView(APIView):
                 {'error': 'Item not found in your cart.'},
                 status=status.HTTP_404_NOT_FOUND
             )
+
+class AddressCreateView(APIView):
+    '''Used Serializer Method and handler for DB logic'''
+    def post(self, request):
+        # Validate the data using the AddressSerializer
+        serializer = AddressSerializer(data=request.data)
+        if serializer.is_valid():
+            try:
+                # Call the handler to create the address, passing the validated data and the user
+                address = AddressHandler.create_address(serializer.validated_data, request.user)
+                
+                # Serialize the created address object to return in the response
+                address_serializer = AddressSerializer(address)
+                return Response({"status": "SUCCESS", "data": address_serializer.data}, status=status.HTTP_201_CREATED)
+            
+            except ValueError as e:
+                return Response({"status": "FAILURE", "error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({"status": "FAILURE", "error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        
+    def patch(self, request, address_id):
+        """
+        Partially update an address.
+        """
+        serializer = AddressSerializer(data=request.data, partial=True)  # Enable partial updates
+        if serializer.is_valid():
+            try:
+                # Call the handler to update the address
+                address = AddressHandler.update_address(
+                    address_id=address_id,
+                    validated_data=serializer.validated_data,
+                    user=request.user,
+                )
+                
+                # Serialize the updated address object to return in the response
+                address_serializer = AddressSerializer(address)
+                return Response({"status": "SUCCESS", "data": address_serializer.data}, status=status.HTTP_200_OK)
+            
+            except ValueError as e:
+                return Response({"status": "FAILURE", "error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({"status": "FAILURE", "error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        
+    
+    def delete(self, request, address_id):
+        """
+        Delete an address.
+        """
+        try:
+            AddressHandler.delete_address(address_id=address_id, user=request.user)
+            return Response({"status": "SUCCESS", "message": "Address deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
+        except ValueError as e:
+            return Response({"status": "FAILURE", "error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    def get(self, request, address_id):
+        """
+        Retrieve a specific address.
+        """
+        try:
+            address = AddressHandler.get_address(address_id=address_id, user=request.user)
+            address_serializer = AddressSerializer(address)
+            return Response({"status": "SUCCESS", "data": address_serializer.data}, status=status.HTTP_200_OK)
+        except ValueError as e:
+            return Response({"status": "FAILURE", "error": str(e)}, status=status.HTTP_404_NOT_FOUND)
+
+
+
+
+# class OrderCreateView(APIView):
+#     def post(self, request):
+#         try:
+#             order_handler = OrderHandler.create_order(request)
+#             return Response(
+#                 {"status": "SUCCESS", "message": "Order placed successfully!", "order_id": order_handler.id},
+#                 status=status.HTTP_201_CREATED
+#             )
+#         except ValueError as e:
+#             return Response(
+#                 {"status": "FAILURE", "error": str(e)},
+#                 status=status.HTTP_400_BAD_REQUEST
+#             )
+  

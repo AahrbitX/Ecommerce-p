@@ -109,3 +109,113 @@ class CartHandler:
                 }
             }
         return response
+
+
+
+
+class AddressHandler:
+
+    @staticmethod
+    def create_address(validated_data, user):
+        """
+        Handles the creation of an Address object.
+        """
+        street_address = validated_data.pop('street_address')
+        city = validated_data.pop('city')
+        state = validated_data.pop('state')
+        postal_code = validated_data.pop('postal_code')
+        country = validated_data.pop('country')
+
+       
+        address = Address.objects.create(
+            street_address=street_address,
+            city=city,
+            state=state,
+            postal_code=postal_code,
+            country=country,
+            user=user   
+        )
+        
+        return address
+
+
+    @staticmethod
+    def update_address(address_id, validated_data, user):
+       
+      try:
+          address = Address.objects.get(id=address_id, user=user)
+      except Address.DoesNotExist:
+          raise ValueError("Address not found or doesn't belong to the user.")
+
+         
+      address.street_address = validated_data.get('street_address', address.street_address)
+      address.city = validated_data.get('city', address.city)
+      address.state = validated_data.get('state', address.state)
+      address.postal_code = validated_data.get('postal_code', address.postal_code)
+      address.country = validated_data.get('country', address.country)
+  
+      address.save()
+      return address
+
+    @staticmethod
+    def delete_address(address_id, user):
+        """
+        Delete an address for the user.
+        """
+        try:
+            address = Address.objects.get(id=address_id, user=user)
+        except Address.DoesNotExist:
+            raise ValueError("Address not found or doesn't belong to the user.")
+        
+        address.delete()
+        return True
+
+    @staticmethod
+    def get_address(address_id, user):
+        """
+        Retrieve a specific address by its ID for the user.
+        """
+        try:
+            address = Address.objects.get(id=address_id, user=user)
+            return address
+        except Address.DoesNotExist:
+            raise ValueError("Address not found or doesn't belong to the user.")
+  
+ 
+
+# # Order handler
+# class OrderHandler:
+    
+#     @staticmethod
+#     def create_order(request):
+#         # Validate cart items
+#         cart_items = Cart.objects.filter(user=request.user)
+#         if not cart_items.exists():
+#             raise ValueError("No items in the cart to create an order.")
+
+#         # Validate and fetch address from request
+#         address_id = request.data.get("address_id")
+#         if not address_id:
+#             raise ValueError("Address ID is required to place an order.")
+        
+#         try:
+#             address = Address.objects.get(id=address_id, user=request.user)
+#         except Address.DoesNotExist:
+#             raise ValueError("The provided address does not exist.")
+
+#         # Create an order for the user
+#         order = Order.objects.create(user=request.user, address=address)
+        
+#         # Create order items for all cart items
+#         for cart_item in cart_items:
+#             OrderItem.objects.create(
+#                 order=order,
+#                 product=cart_item.product,
+#                 quantity=cart_item.quantity,
+#                 price=cart_item.product.price,  # Update if discount logic applies
+#             )
+
+#         # Clear the cart after creating the order
+#         cart_items.delete()
+
+#         return order
