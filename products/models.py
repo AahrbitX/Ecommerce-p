@@ -81,6 +81,7 @@ class Address(models.Model):
         return f"Address of {self.user.email}"
 
 class Order(models.Model):
+    order_id=models.UUIDField(primary_key=True,default = uuid.uuid4)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     address = models.ForeignKey(Address, on_delete=models.SET_NULL, null=True, blank=True)
     ordered_at = models.DateTimeField(auto_now_add=True)
@@ -92,17 +93,18 @@ class Order(models.Model):
     ], default="Pending")
 
     def __str__(self):
-        return f"Order {self.id} by {self.user.email}"
+        return f"Order {self.order_id} by {self.user.email}"
 
  
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, related_name="order_items", on_delete=models.CASCADE)
+    order_item_id=models.UUIDField(primary_key=True,default = uuid.uuid4)
+    order_items= models.ForeignKey(Order, related_name="order_items", on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
-        return f"{self.product.name} x {self.quantity} for Order {self.order.id}"
+        return f"{self.product.name} x {self.quantity} for Order {self.order_item_id}"
     
 
 

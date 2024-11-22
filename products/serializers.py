@@ -46,7 +46,16 @@ class AddressSerializer(serializers.ModelSerializer):
         return value
     
 
-class OrderSerializer(serializers.ModelSerializer):
+class OrderItemSerializer(serializers.ModelSerializer):
     class meta:
-        model=Order
+        model=OrderItem
         fields='__all__'
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    address = AddressSerializer()   
+    order_items = OrderItemSerializer(many=True)   
+
+    class Meta:
+        model = Order
+        fields = ['address',  'order_items',]
