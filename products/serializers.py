@@ -47,7 +47,7 @@ class AddressSerializer(serializers.ModelSerializer):
     
 
 class OrderItemSerializer(serializers.ModelSerializer):
-    class meta:
+    class Meta:
         model=OrderItem
         fields='__all__'
 
