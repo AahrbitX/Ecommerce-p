@@ -5,7 +5,7 @@ from .serializers import *
 from rest_framework.response import Response
 from rest_framework import status
 from products.models import Product
-from products.handlers import ProductHandler,CartHandler,AddressHandler
+from products.handlers import ProductHandler,CartHandler,AddressHandler,OrderHandler
 from rest_framework.permissions import IsAuthenticated
 
  
@@ -16,11 +16,21 @@ class ProductAPIView(APIView):
     def get(self, request, product_id=None):
         if product_id:
             product = get_object_or_404(Product, product_id=product_id)
+            if not products.exists():
+             return Response(
+                {"message": "No products are available"},
+                status=status.HTTP_200_OK
+             )
             serializer = ProductSerializer(product)
             return Response(
                 {"data":serializer.data},status=status.HTTP_200_OK)
 
         products = ProductHandler.get_filtered_products(request)
+        if not products.exists():
+            return Response(
+                {"message": "No products are available"},
+                status=status.HTTP_200_OK
+            )
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
@@ -210,17 +220,21 @@ class AddressCreateView(APIView):
 
 
 
-# class OrderCreateView(APIView):
-#     def post(self, request):
-#         try:
-#             order_handler = OrderHandler.create_order(request)
-#             return Response(
-#                 {"status": "SUCCESS", "message": "Order placed successfully!", "order_id": order_handler.id},
-#                 status=status.HTTP_201_CREATED
-#             )
-#         except ValueError as e:
-#             return Response(
-#                 {"status": "FAILURE", "error": str(e)},
-#                 status=status.HTTP_400_BAD_REQUEST
-#             )
+class OrderCreateView(APIView):
+    def post(self, request):
+        try:
+            order_handler = OrderHandler.create_order(request)
+            order_serializer = OrderSerializer(order_handler)
+            return Response(
+                { "status": "SUCCESS",
+                  "message": "Order placed successfully!",
+                  "data":order_serializer.data
+                  },
+                status=status.HTTP_201_CREATED
+            )
+        except ValueError as e:
+            return Response(
+                {"status": "FAILURE", "error": str(e)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
   
