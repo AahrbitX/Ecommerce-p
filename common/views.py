@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate
 from common.serializers import *
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated,AllowAny
-from common.handlers import CustomUserHandler
+from common.handlers import CustomUserHandler, ResetPasswordHandler 
 from rest_framework.exceptions import ValidationError
 
 
@@ -46,3 +46,20 @@ class CurrentUserView(APIView):
             'user_id': str(user.user_id), 
             'email': user.email,
         })
+    
+
+class ForgotPasswordView(APIView):
+    def post(self, request):
+        try:
+            result = ResetPasswordHandler.forgot_password(request)
+            return Response({"message": "OTP has been sent successfully"},status=status.HTTP_200_OK)
+        except ValidationError as e:
+            return Response({"error": str(e)}, status=400)
+
+class VerifyOtpView(APIView):
+    def post(self, request):
+        try:
+            result = ResetPasswordHandler.verify_otp(request)
+            return Response(result)
+        except ValidationError as e:
+            return Response({"error": str(e)}, status=400)
