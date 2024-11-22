@@ -27,7 +27,7 @@ class Product(DateAbstract):
         (DISABLE, 'inactive'),
         (DELETED, 'deleted')
     )
-    user_id=models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True,blank=True)
+    user=models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True,blank=True)
     product_id = models.UUIDField(default=uuid.uuid4,primary_key=True, editable=False, unique=True)  
     name = models.CharField(max_length=255)
     description = models.TextField(null=True,blank=True)

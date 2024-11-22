@@ -9,9 +9,9 @@ class ProductHandler:
     
     @staticmethod
     def create_product(validated_data):
-        user=validated_data.pop('user_id')
+        user=validated_data.pop('user')
         category = validated_data.pop('category')
-        product = Product.objects.create(**validated_data, category=category,user_id=user)
+        product = Product.objects.create(**validated_data, category=category,user=user)
         return product
 
     @staticmethod

@@ -107,7 +107,7 @@ class CartView(APIView):
        if result["status"] == "SUCCESS":
             return Response(
                 {"data":result,"message":"Item added successfully"}, status=status.HTTP_200_OK)
-       
+        
        return Response(result, status=status.HTTP_400_BAD_REQUEST)
        
    def get(self, request): 
@@ -116,6 +116,10 @@ class CartView(APIView):
      if user:
         
         cart_items = Cart.objects.filter(user=user)
+        if not cart_items:
+            return Response({
+                "data":"No items in the cart"
+            })
         serializer = CartSerializer(cart_items, many=True)
 
         total_price = sum(item.total_price for item in cart_items)
