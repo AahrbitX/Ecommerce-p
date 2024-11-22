@@ -232,7 +232,7 @@ class OrderCreateView(APIView):
             return Response(
                 { "status": "SUCCESS",
                   "message": "Order placed successfully!",
-                  "data":order_serializer.data
+                  "Reference Id":order_handler.order_id
                   },
                 status=status.HTTP_201_CREATED
             )

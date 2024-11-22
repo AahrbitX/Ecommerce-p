@@ -3,7 +3,7 @@ from products.models import *
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
 from products.serializers import *
- 
+from django.db import transaction
 
 class ProductHandler:
     
@@ -109,10 +109,6 @@ class CartHandler:
                 }
             }
         return response
-
-
-
-
 class AddressHandler:
 
     @staticmethod
@@ -185,33 +181,38 @@ class AddressHandler:
 
 # Order handler
 class OrderHandler:
-    
-    @staticmethod
-    def create_order(request):
-        # Validate cart items
-        cart_items = Cart.objects.filter(user=request.user)
-        if not cart_items.exists():
-            raise ValueError("No items in the cart to create an order.")
 
-     
-        address_id = request.data.get("address_id")
-        if not address_id:
-            raise ValueError("Address ID is required to place an order.")
-        
-        try:
-            address = Address.objects.get(id=address_id, user=request.user)
-        except Address.DoesNotExist:
-            raise ValueError("The provided address does not exist.")
-        order = Order.objects.create(user=request.user, address=address)
-        for cart_item in cart_items:
-            OrderItem.objects.create(
-                order=order,
-                product=cart_item.product,
-                quantity=cart_item.quantity,
-                total_price=cart_item.total_price,
-            )
+  @staticmethod
+  def create_order(request):
+    try:
+        with transaction.atomic():
+           
+            cart_items = Cart.objects.filter(user=request.user)
+            if not cart_items.exists():
+                raise ValueError("No items in the cart to create an order.")
 
-        # Clear the cart after creating the order
-        cart_items.delete()
+            address_id = request.data.get("address_id")
+            if not address_id:
+                raise ValueError("Address ID is required to place an order.")
+            
+            try:
+                address = Address.objects.get(id=address_id, user=request.user)
+            except Address.DoesNotExist:
+                raise ValueError("The provided address does not exist.")
+            
+            order = Order.objects.create(user=request.user, address=address)
+
+            for cart_item in cart_items:
+                OrderItem.objects.create(
+                    order_items=order,
+                    product=cart_item.product,
+                    quantity=cart_item.quantity,
+                    total_price=cart_item.total_price,
+                )
+
+            cart_items.delete()
 
         return order
+    except Exception as e:
+       
+        raise ValueError(f"An error occurred while creating the order: {str(e)}")
