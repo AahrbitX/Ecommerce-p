@@ -109,7 +109,7 @@ class ResetPasswordHandler:
             request.session.pop('otp_timestamp', None)
             request.session.pop('email', None)
 
-            return Response({"message": "Password has been reset successfully."}, status=200)
+            return "Password has been reset successfully."
 
         except ValidationError as ve:
             return Response({"error": str(ve)}, status=400)
