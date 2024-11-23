@@ -37,12 +37,20 @@ class ProductAPIView(APIView):
     def post(self, request):
         serializer = ProductSerializer(data=request.data)
         if serializer.is_valid():
-            product = ProductHandler.create_product(serializer.validated_data)
-            product_data = ProductSerializer(product).data
-            return Response(
-                {"data":product_data, "message": "Product created successfully!"},
-                status=status.HTTP_201_CREATED
-            )
+            try:
+                product_data = ProductHandler.create_product(serializer.validated_data)
+                return Response(
+                    {
+                        "data": product_data, 
+                        "message": "Product created successfully!"
+                    },
+                    status=status.HTTP_201_CREATED
+                )
+            except Exception as e:
+                return Response(
+                    {"error": str(e), "message": "Product creation failed."},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
         return Response(
             {"errors": serializer.errors, "message": "Product creation failed."},
             status=status.HTTP_400_BAD_REQUEST
@@ -57,36 +65,41 @@ class ProductAPIView(APIView):
                 {"status": "FAILURE", "error": str(e)}, status=status.HTTP_404_NOT_FOUND
             )
 
-    def patch(self, request, product_id=None):
-     try:
-        if product_id:
-            # Attempt to update the product using the handler method
-            updated_product = ProductHandler.update_product(product_id, request.data)
+    
+    def patch(self, request, product_id):
+        """
+        Handle partial updates to an existing product.
+        """
+        try:
+            serializer = ProductSerializer(data=request.data, partial=True)
+            serializer.is_valid(raise_exception=True)
+            update_data = serializer.validated_data
+            updated_product = ProductHandler.update_product(product_id, update_data)
 
-            # Return a response with the updated product details (or its relevant fields)
             return Response(
-                {"status": "SUCCESS", "data": {
-                    "product_id": updated_product.product_id,
-                    "name": updated_product.name,
-                    "price": updated_product.price,
-                    "category": updated_product.category.id,
-                    # Add other fields as needed
-                }},
+                {
+                    "data": updated_product,
+                    "message": "Product updated successfully!"
+                },
                 status=status.HTTP_200_OK
             )
-        else:
-            # Provide a more meaningful error message when no product_id is provided
+
+        except ValueError as e:
             return Response(
-                {"status": "FAILURE", "error": "Product ID is required."},
+                {
+                    "error": str(e),
+                    "message": "Product update failed."
+                },
                 status=status.HTTP_400_BAD_REQUEST
             )
+        except Exception as e:
+            return Response(
+                {
+                    "error": str(e),
+                    "message": "An unexpected error occurred while updating the product."
+                },
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
-     except ValueError as e:
-        # Catch any ValueError from the update_product method and return a failure response
-        return Response(
-            {"status": "FAILURE", "error": str(e)},
-            status=status.HTTP_404_NOT_FOUND
-        )
 
 class CategoryView(generics.ListCreateAPIView):
     queryset = Category.objects.all()
@@ -160,16 +173,12 @@ class CartView(APIView):
 class AddressCreateView(APIView):
     '''Used Serializer Method and handler for DB logic'''
     def post(self, request):
-        # Validate the data using the AddressSerializer
         serializer = AddressSerializer(data=request.data)
         if serializer.is_valid():
             try:
-                # Call the handler to create the address, passing the validated data and the user
                 address = AddressHandler.create_address(serializer.validated_data, request.user)
-                
-                # Serialize the created address object to return in the response
                 address_serializer = AddressSerializer(address)
-                return Response({"status": "SUCCESS", "data": address_serializer.data}, status=status.HTTP_201_CREATED)
+                return Response({"status": "success", "data": address_serializer.data}, status=status.HTTP_201_CREATED)
             
             except ValueError as e:
                 return Response({"status": "FAILURE", "error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
@@ -183,14 +192,11 @@ class AddressCreateView(APIView):
         serializer = AddressSerializer(data=request.data, partial=True)  # Enable partial updates
         if serializer.is_valid():
             try:
-                # Call the handler to update the address
                 address = AddressHandler.update_address(
                     address_id=address_id,
                     validated_data=serializer.validated_data,
                     user=request.user,
                 )
-                
-                # Serialize the updated address object to return in the response
                 address_serializer = AddressSerializer(address)
                 return Response({"status": "SUCCESS", "data": address_serializer.data}, status=status.HTTP_200_OK)
             

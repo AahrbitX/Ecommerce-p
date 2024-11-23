@@ -7,21 +7,21 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = ['name']
  
+class ProductImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductImage
+        fields = ['image', 'uploaded_at']
 class ProductSerializer(serializers.ModelSerializer):
     category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
     user=serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())  
-
-    
-    
+    images = serializers.ListField(
+      child=serializers.ImageField(), write_only=True, required=False)
     class Meta:
         model = Product
-        fields = ['user','product_id', 'name', 'description', 'price', 'discount_price', 'category', 'rating', 'stock', 'image', 'status', 'created_at', 'updated_at']
+        fields = ['user','product_id', 'name', 'description', 'price', 'discount_price', 'category', 'rating', 'stock', 'images', 'status', 'created_at', 'updated_at']
     
     def create(self, validated_data):
-        
-        
         handlers=ProductHandler()
-
         return handlers.create_product(validated_data)
 
 class CartSerializer(serializers.ModelSerializer):
