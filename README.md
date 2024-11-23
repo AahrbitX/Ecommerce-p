@@ -29,7 +29,12 @@ pip install -r requirements.txt
 #### 4. Set Up the Database
 
 ```bash
+python manage.py makemigrations
 python manage.py migrate
+
+To migrate named "products" app :
+python manage.py makemigrations products
+python manage.py migrate products
 ```
 
 #### 5. Create a Superuser (Admin Account)
@@ -63,12 +68,22 @@ cd Ecommerce-p
 
 ```bash
 docker-compose up --build
-```
 
+or
+
+docker-compose build
+docker-compose up
+```
 This command will:
 
 - Build the Docker images for the project.
 - Start the Django application in a Docker container.
+
+#### To list all containers
+docker ps 
+This command will:
+
+- command list all containers of repository
 
 #### 3. Run Migrations
 
