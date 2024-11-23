@@ -133,7 +133,7 @@ Ecommerce-p/
 
 ## Technologies Used
 
-- **Backend**: Django (Python)
+- **Backend**: Django (Python), DRF(Django Rest Framework)
 - **Database**: SQLite (for local), PostgreSQL (for production)
 - **Containerization**: Docker, Docker Compose
 - **Frontend**: HTML, CSS, JavaScript (Django templates)
