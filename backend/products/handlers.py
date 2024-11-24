@@ -6,13 +6,46 @@ from products.serializers import *
 from django.db import transaction
 
 class ProductHandler:
-    
     @staticmethod
     def create_product(validated_data):
-        user=validated_data.pop('user')
-        category = validated_data.pop('category')
-        product = Product.objects.create(**validated_data, category=category,user=user)
-        return product
+        try:
+            user = validated_data.pop('user', None)
+            category = validated_data.pop('category', None)
+            images = validated_data.pop('images', [])
+
+            if not user:
+                raise ValueError("User is required to create a product.")
+            if not category:
+                raise ValueError("Category is required to create a product.")
+            product = Product.objects.create(
+                **validated_data, category = category, user = user
+            )
+            if images:
+                for image in images:
+                    ProductImage.objects.create(product = product, image = image)
+
+            response_data = {
+                'product_id': product.product_id,
+                'name': product.name,
+                'description': product.description,
+                'price': product.price,
+                'discount_price': product.discount_price,
+                'category': product.category.id,
+                'rating': product.rating,
+                'stock': product.stock,
+                'status': product.status,
+                'created_at': product.created_at,
+                'updated_at': product.updated_at,
+                'images': [img.image.url for img in product.images.all()],  #access through related name !
+            }
+
+            return response_data
+
+        except Exception as e:
+            raise Exception(f"An error occurred while creating the product: {e}")
+
+      
+          
 
     @staticmethod
     def get_filtered_products(request):
@@ -43,37 +76,57 @@ class ProductHandler:
 
     @staticmethod
     def update_product(product_id, update_data):
-     try:
-        # Retrieve the product by product_id
-        product = Product.objects.get(product_id=product_id)
+        try:
+            product = Product.objects.get(product_id=product_id)
 
-        # Handle category update if present
-        if 'category' in update_data:
-            category_id = update_data.pop('category')
-            try:
-                category_instance = Category.objects.get(id=category_id)
-                update_data['category'] = category_instance
-            except Category.DoesNotExist:
-                raise ValueError("Category with the provided ID does not exist.")
+            category = update_data.pop('category', None)
+            user = update_data.pop('user', None)
+            images = update_data.pop('images', None)
 
-        # Handle user update if user_id is provided
-        if 'user_id' in update_data:
-            user_id = update_data.pop('user_id')
-            try:
-                user_instance = CustomUser.objects.get(user_id=user_id)
-                update_data['user'] = user_instance
-            except CustomUser.DoesNotExist:
-                raise ValueError("User with the provided ID does not exist.")
+            if 'category' in update_data:
+                try:
+                    category_instance = Category.objects.get(id=category)
+                    product.category = category_instance
+                except Category.DoesNotExist:
+                    raise ValueError("Category with the provided ID does not exist.")
+            if user:
+                try:
+                    user_instance = CustomUser.objects.get(user_id=user)
+                    product.user = user_instance
+                except CustomUser.DoesNotExist:
+                    raise ValueError("User with the provided ID does not exist.")
+                
+            for attr, value in update_data.items():
+                setattr(product, attr, value)
 
-        # Update the remaining fields dynamically
-        for attr, value in update_data.items():
-            setattr(product, attr, value)
-        
-        product.save()  # Save the updated product
-        return product
+            product.save()   
 
-     except Product.DoesNotExist:
-        raise ValueError("Product with the provided ID does not exist.")
+            if images is not None:
+                product.images.all().delete()
+                for image in images:
+                    ProductImage.objects.create(product=product, image=image)
+
+            response_data = {
+                'product_id': product.product_id,
+                'name': product.name,
+                'description': product.description,
+                'price': product.price,
+                'discount_price': product.discount_price,
+                'category': product.category.id if product.category else None,
+                'rating': product.rating,
+                'stock': product.stock,
+                'status': product.status,
+                'created_at': product.created_at,
+                'updated_at': product.updated_at,
+                'images': [image.image.url for image in product.images.all()],
+            }
+
+            return response_data
+
+        except Product.DoesNotExist:
+            raise ValueError("Product with the provided ID does not exist.")
+        except Exception as e:
+            raise Exception(f"An error occurred while updating the product: {e}")
 
 
 class CartHandler:

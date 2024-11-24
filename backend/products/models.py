@@ -36,7 +36,7 @@ class Product(DateAbstract):
     discount_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     rating = models.FloatField(default=0,null=True ,help_text="Product rating out of 5")
     stock = models.PositiveIntegerField(default=0, help_text="Number of items available in stock")
-    image = models.ImageField(upload_to='product_images/', null=True, blank=True)
+    # image = models.ImageField(upload_to='product_images/', null=True, blank=True)
     status = models.BooleanField(default=ENABLE,choices=STATUS_OPTIONS)
      
     class Meta:
@@ -50,7 +50,13 @@ class Product(DateAbstract):
     def __str__(self):
         return f"{self.name}  {self.product_id}"
 
-    
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='product_images/', null=True, blank= True)
+    uploaded_at = models.DateTimeField(auto_now_add=True) 
+
+    def __str__(self):
+        return str(self.image)
 
 class Cart(models.Model):
 
