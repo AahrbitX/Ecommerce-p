@@ -38,10 +38,17 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # Add the origin of your React app
-]
+CORS_ORIGIN_ALLOW_ALL = True
+ALLOWED_HOSTS = ['*']
 
+CORS_ALLOW_HEADERS = ["*"]
+CORS_ALLOW_METHODS = ["*"]
+
+
+CORS_ALLOWED_ORIGINS = [
+    'http://*',
+    'https://*',
+]
 
 
 
@@ -74,7 +81,8 @@ DATABASES = {
     }
 }
 
-  
+APPEND_SLASH = False
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -108,11 +116,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 #images
 MEDIA_URL = '/media/' 
