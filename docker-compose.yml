@@ -1,11 +1,28 @@
-version: '3'
+version: '3.8'
 
 services:
+  frontend:
+    build:
+      context: ./frontend  # Path to the frontend folder
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000" 
+    networks:
+      - app-network
+
   ecommerce:
-    build: .
+    build: ./backend
     restart: always
     ports:
-      - "8000:8000"
+      - "8000:8000"  # Map Django to port 8000
+    networks:
+      - app-network
     container_name: ecommerce
     volumes:
-      - .:/var/www/group
+      - .:/var/www/group  # Bind the backend code for live development
+    env_file:
+      - .env  # Load environment variables from the .env file
+
+networks:
+  app-network:
+    driver: bridge
