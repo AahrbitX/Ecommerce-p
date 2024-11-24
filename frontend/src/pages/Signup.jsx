@@ -23,10 +23,10 @@ const Signup = () => {
       return;
     }
     try {
-      const response = await axios.post('http://localhost:8000/common/login/',{email,password});
-      console.log("Login Successful:", response.data);
-      alert('Login Successful');
-      navigate('/');
+      const response = await axios.post('http://localhost:8000/common/signup/',{email,password});
+      console.log(response.data)
+      alert('User Created Sucessfully');
+      navigate('/login');
     }
     catch (error) {
       console.error("Login Failed: ", error);
@@ -39,7 +39,7 @@ const Signup = () => {
   };
   return (
     <div style={styles.container}>
-      <h2 style={styles.title}>Login</h2>
+      <h2 style={styles.title}>Signup</h2>
       <form onSubmit={handleSubmit} style={styles.form}>
         <div style={styles.inputContainer}>
           <label htmlFor="email" style={styles.label}>Email:</label>
@@ -65,6 +65,8 @@ const Signup = () => {
         </div>
         {error && <p style={styles.error}>{error}</p>}
         <button type="submit" style={styles.button}>Login</button>
+
+        <a href="/login">already have account ?</a>
       </form>
     </div>
   );
