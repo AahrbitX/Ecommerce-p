@@ -1,6 +1,1 @@
 .env
-myenv/
-__pycache__/
-migrations/
-media/
-*.sqlite3
