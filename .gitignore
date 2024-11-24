@@ -3,3 +3,4 @@ env/
 node_modules
 .env
 db.sqlite3
+package-lock.json
