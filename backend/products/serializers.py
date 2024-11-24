@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from backend.products.models import *
-from backend.products.handlers import ProductHandler
+from products.models import *
+from products.handlers import ProductHandler
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:

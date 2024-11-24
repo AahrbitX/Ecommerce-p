@@ -1,11 +1,11 @@
 from django.shortcuts import render,get_object_or_404
 from rest_framework.views import APIView
 from rest_framework import generics
-from .serializers import *
+from products.serializers import *
 from rest_framework.response import Response
 from rest_framework import status
-from backend.products.models import Product
-from backend.products.handlers import ProductHandler,CartHandler,AddressHandler,OrderHandler
+from products.models import Product
+from products.handlers import ProductHandler,CartHandler,AddressHandler,OrderHandler
 from rest_framework.permissions import IsAuthenticated
 
  
