@@ -68,19 +68,18 @@ cd Ecommerce-p
 
 ```bash
 docker-compose up --build
-
-or
-
 docker-compose build
 docker-compose up
 ```
+
 This command will:
 
 - Build the Docker images for the project.
 - Start the Django application in a Docker container.
 
 #### To list all containers
-docker ps 
+
+docker ps
 This command will:
 
 - command list all containers of repository
@@ -133,7 +132,7 @@ Ecommerce-p/
 
 ## Technologies Used
 
-- **Backend**: Django (Python), DRF(Django Rest Framework)
+- - **Backend**: Django (Python), DRF(Django Rest Framework)
 - **Database**: SQLite (for local), PostgreSQL (for production)
 - **Containerization**: Docker, Docker Compose
 - **Frontend**: HTML, CSS, JavaScript (Django templates)

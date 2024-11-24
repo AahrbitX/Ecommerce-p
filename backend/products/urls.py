@@ -1,6 +1,6 @@
 # urls.py
 from django.urls import path
-from products.views import *
+from backend.products.views import *
 from django.conf import settings
 from django.conf.urls.static import static
 

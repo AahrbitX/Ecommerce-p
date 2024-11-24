@@ -4,8 +4,8 @@ from rest_framework import generics
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework import status
-from products.models import Product
-from products.handlers import ProductHandler,CartHandler,AddressHandler,OrderHandler
+from backend.products.models import Product
+from backend.products.handlers import ProductHandler,CartHandler,AddressHandler,OrderHandler
 from rest_framework.permissions import IsAuthenticated
 
  

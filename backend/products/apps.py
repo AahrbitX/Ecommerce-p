@@ -7,5 +7,5 @@ class RecommendConfig(AppConfig):
 
     def ready(self):
        
-        import products.signals
+        import backend.products.signals
 

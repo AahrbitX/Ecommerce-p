@@ -1,8 +1,8 @@
 from common.models import *
-from products.models import *
+from backend.products.models import *
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
-from products.serializers import *
+from backend.products.serializers import *
 from django.db import transaction
 
 class ProductHandler:

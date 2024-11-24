@@ -7,7 +7,6 @@ const apiClient = axios.create({
         "Content-Type":"application/json",
     },
 });
-
 // export const getData = async () => {
 //     try{
 //         const response = await apiClient.get("");
@@ -17,8 +16,6 @@ const apiClient = axios.create({
 //         throw error;
 //     }
 // };
-
-
 export const postData = async (data) => {
     try {
       const response = await apiClient.post("/login/", data);
@@ -28,4 +25,3 @@ export const postData = async (data) => {
       throw error;
     }
   };
-  
