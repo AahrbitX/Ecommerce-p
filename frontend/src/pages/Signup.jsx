@@ -64,7 +64,7 @@ const Signup = () => {
           />
         </div>
         {error && <p style={styles.error}>{error}</p>}
-        <button type="submit" style={styles.button}>Login</button>
+        <button type="submit" style={styles.button}>Signup</button>
 
         <a href="/login">already have account ?</a>
       </form>
