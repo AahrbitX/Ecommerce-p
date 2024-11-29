@@ -1,6 +1,7 @@
-__pycache__/
-env/
+__pycache__
+env
 node_modules
 .env
 db.sqlite3
 package-lock.json
+myenv

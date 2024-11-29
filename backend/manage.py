@@ -3,10 +3,13 @@
 import os
 import sys
 
-
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'root.settings')
+    # Add the backend directory to the Python path
+    current_path = os.path.dirname(os.path.abspath(__file__))
+    sys.path.append(os.path.join(current_path, "backend"))
+    
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'root.settings')  # Ensure 'root.settings' is accessible
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -16,7 +19,6 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     execute_from_command_line(sys.argv)
-
 
 if __name__ == '__main__':
     main()

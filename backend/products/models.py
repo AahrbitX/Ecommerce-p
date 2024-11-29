@@ -115,26 +115,26 @@ class OrderItem(models.Model):
 
 
 
-# class Payment(models.Model):
+class Payment(models.Model):
 
-#     PAYMENT_STATUS=[
-#         ("Pending", "Pending"),
-#         ("Completed", "Completed"),
-#         ("Failed", "Failed")
-#         ]
+    PAYMENT_STATUS=[
+        ("Pending", "Pending"),
+        ("Completed", "Completed"),
+        ("Failed", "Failed")
+        ]
     
-#     PAYMENT_METHOD=[
-#         ("Credit Card", "Credit Card"),
-#         ("Debit Card", "Debit Card"),
-#         ("PayPal", "PayPal"),
-#         ("Bank Transfer", "Bank Transfer"),
-#     ]
+    PAYMENT_METHOD=[
+        ("Credit Card", "Credit Card"),
+        ("Debit Card", "Debit Card"),
+        ("PayPal", "PayPal"),
+        ("Bank Transfer", "Bank Transfer"),
+    ]
     
-#     order = models.ForeignKey(Order, related_name="payments", on_delete=models.CASCADE)
-#     amount = models.DecimalField(max_digits=10, decimal_places=2)
-#     payment_date = models.DateTimeField(auto_now_add=True)
-#     payment_method = models.CharField(max_length=50,choices=PAYMENT_METHOD)
-#     status_status = models.CharField(max_length=20, choices=PAYMENT_STATUS,default="Pending")
+    order = models.ForeignKey(Order, related_name="payments", on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    payment_date = models.DateTimeField(auto_now_add=True)
+    payment_method = models.CharField(max_length=50,choices=PAYMENT_METHOD)
+    status_status = models.CharField(max_length=20, choices=PAYMENT_STATUS,default="Pending")
 
-#     def __str__(self):
-#         return f"Payment {self.id} for Order {self.order.id}"
+    def __str__(self):
+        return f"Payment {self.id} for Order {self.order.id}"
