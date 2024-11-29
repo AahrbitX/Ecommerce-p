@@ -16,8 +16,12 @@ class SignupView(APIView):
             return Response({"message": "User registered successfully", "user": user.user_id}, status=status.HTTP_201_CREATED)
         except ValidationError as e:
             return Response(e.detail, status=status.HTTP_400_BAD_REQUEST)
-        
+class Logout(APIView):
+    def post(self, request):
+        response = Response({"detail": "Successfully logged out"}, status=status.HTTP_200_OK)
+        response.delete_cookie('access_token')  
 
+        return response
 class LoginView(APIView):
     def post(self, request):
 
