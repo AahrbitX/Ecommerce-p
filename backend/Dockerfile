@@ -1,24 +1,19 @@
 FROM python:3
 
-
-# Set environment variable to avoid buffering
 ENV PYTHONUNBUFFERED=1
 
-# Set the working directory to the project root
+# Set the working directory to /app (project root for backend)
 WORKDIR /app
 
-# Copy all project files into the container
-COPY . .
+# Copy the backend directory contents to the container's /app
+COPY . /app
 
-# Upgrade pip to the latest version
+# Upgrade pip and install dependencies
 RUN pip install --upgrade pip
-
-# Install dependencies from the requirements file
-COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
-# Expose port 8000 for the Django app
+# Expose the Django port
 EXPOSE 8000
 
-# Command to run the Django server
+# Run the Django development server
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
