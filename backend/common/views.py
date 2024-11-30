@@ -58,7 +58,7 @@ class ForgotPasswordView(APIView):
             result = ResetPasswordHandler.forgot_password(request)
             return Response({"message": "OTP has been sent successfully"},status=status.HTTP_200_OK)
         except ValidationError as e:
-            return Response({"error": str(e)}, status=400)
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 class VerifyOtpView(APIView):
     def post(self, request):
