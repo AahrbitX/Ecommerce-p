@@ -7,7 +7,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from common.handlers import CustomUserHandler, ResetPasswordHandler 
 from rest_framework.exceptions import ValidationError
-
+from common.backends import CookieJWTAuthentication
 
 class SignupView(APIView):
     def post(self, request):
@@ -23,26 +23,36 @@ class Logout(APIView):
 
         return response
 class LoginView(APIView):
+    permission_classes = [AllowAny]
+    
     def post(self, request):
-
-        email=request.data.get('email')
+        email = request.data.get('email')
         password = request.data.get('password')
         
-        user = authenticate(request, email=email,password=password)
+        user = authenticate(request, email=email, password=password)
 
         if user:
             refresh = RefreshToken.for_user(user)
-            return Response({
-                 
-                'access': str(refresh.access_token),
+            response = Response({
+                'access': str(refresh.access_token), 
+                "message": "Successfuly logged"
             }, status=status.HTTP_200_OK)
+            response.set_cookie(
+                key='access_token',
+                value=str(refresh.access_token),
+                httponly=True,      # Prevent JavaScript access
+                # secure=True,       # Use True in production (HTTPS)
+                # samesite='Lax',    # Adjust if cross-origin requests are needed
+                max_age=50000,       # Expiry in seconds
+            )
+            return response
+        
         return Response({"detail": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
-
- 
     
 #user dashboard
 class CurrentUserView(APIView):
     permission_classes = [IsAuthenticated]
+    authentication_classes = [CookieJWTAuthentication]
 
     def get(self, request):
         user = request.user  

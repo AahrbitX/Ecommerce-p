@@ -136,12 +136,14 @@ AUTHENTICATION_BACKENDS = [
  
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
+       
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        #   'common.backends.CookieJWTAuthentication',
     ),
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),   
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),   
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),      
     'ROTATE_REFRESH_TOKENS': True,
     # 'AUTH_HEADER_TYPES': ('Bearer',),
@@ -152,8 +154,57 @@ SIMPLE_JWT = {
 }
 EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "django.core.mail.backends.smtp.EmailBackend")
 EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.gmail.com")
-EMAIL_PORT = int(os.getenv("EMAIL_PORT", 587))  # Default to 587, commonly used for TLS
-EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True").lower() in ["true", "1", "yes"]  # Converts to a boolean
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "your_default_email@gmail.com")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "your_default_password")
-DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "your_default_email@gmail.com")
+EMAIL_PORT = int(os.getenv("EMAIL_PORT", 587))   
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True").lower() in ["true", "1", "yes"]  
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "maneeshmaneesh391@gmail.com")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "ufmd xzkl sgol nuxu")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "maneeshmaneesh391@gmail.com")
+
+
+# CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',  # Only logs when DEBUG is False
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'INFO',  # Change to WARNING or ERROR to reduce verbosity
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'required.log'),  # Log file location
+            'formatter': 'verbose',
+        },
+        'error_file': {  # Separate file for critical errors
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'errors.log'),
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file', 'error_file'],  # Log general info and errors separately
+            'level': 'INFO',  # Set to WARNING or ERROR if needed
+            'propagate': True,
+        },
+        'custom_logger': {   
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}

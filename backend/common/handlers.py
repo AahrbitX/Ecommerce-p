@@ -94,8 +94,6 @@ class ResetPasswordHandler:
             raise ValidationError("OTP is required.")
         if not new_password:
             raise ValidationError("New password is required.")
-
-        # Validate OTP
         try:
             otp_hash = ResetPasswordHandler.hash_otp(otp)
             otp_record = OTPModel.objects.get(otp_hash=otp_hash)
