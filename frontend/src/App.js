@@ -11,8 +11,8 @@ const Home = lazy(() => import("./pages/Home"));
 const Shop = lazy(() => import("./pages/Shop"));
 const Cart = lazy(() => import("./pages/Cart"));
 const Product = lazy(() => import("./pages/Product"));
-const Login = lazy(() => import("./pages/Login"));
-const Signup = lazy(() => import("./pages/Signup"));
+const Login = lazy(() => import("./components/Auth/Login/Login"));
+const Signup = lazy(() => import("./components/Auth/SignUp/SignUp"));
 
 function App() {
   return (
