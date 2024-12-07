@@ -24,4 +24,27 @@ export const CurrentUser = async (access) => {
      throw error; // Rethrow the error so the calling code can handle it
    }
  };
- 
+
+
+ export const SendOtp = async (email) =>{
+  try {
+    const response = await apiClient.post("/common/forgot-password/",{email});
+    return response.data;
+  }
+  catch(error) {
+    console.error("Error Finding user: ", error)
+    throw error;
+  }
+ };
+
+
+ export const VerifyOTP = async (otp,newpassword) =>{
+  try {
+    const response = await apiClient.post("common/verify-otp/",{otp, newpassword});
+    return response.data
+  }
+  catch(error){
+    console.error("Wrong otp:", error);
+    throw error;
+  }
+ }

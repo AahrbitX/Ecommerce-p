@@ -8,7 +8,7 @@ const NavBar = () => {
   const { cartList } = useSelector((state) => state.cart);
   const [expand, setExpand] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
-  const [User, setUser] = useState("Geust");
+  // const [User, setUser] = useState("Geust");
 
     // fixed Header
   function scrollHandler() {
@@ -128,8 +128,8 @@ const NavBar = () => {
                   clipRule="evenodd"
                 />
               </svg>
-              <getUser setUser={setUser}/>
-              <li>{User !=="Guest"? {User}:"Guest"} </li>
+              {/* <getUser setUser={setUser}/> */}
+              {/* <li>{User !=="Guest"? {User}:"Guest"} </li> */}
               </Link>
 
               <Link
