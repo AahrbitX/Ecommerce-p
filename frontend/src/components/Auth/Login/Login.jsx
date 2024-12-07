@@ -72,6 +72,7 @@ const Login = () => {
         <button type="submit" style={styles.button}>Login</button>
 
         <a href="/signup">Create New account ?</a>
+        <a href="/forgotpassword">Forgot password ?</a>
       </form>
     </div>
   );
