@@ -1,5 +1,7 @@
+__pycache__
+env
+node_modules
 .env
-myenv/
-__pycache__/
-media/
-*.sqlite3
+db.sqlite3
+myenv
+migrations/

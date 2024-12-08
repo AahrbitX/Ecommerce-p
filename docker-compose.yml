@@ -1,11 +1,28 @@
-version: '3'
+version: '3.8'
 
 services:
+  frontend:
+    build:
+      context: ./frontend  
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
   ecommerce:
-    build: .
+    build:
+      context: ./backend   
+      dockerfile: Dockerfile
     restart: always
     ports:
       - "8000:8000"
+    networks:
+      - app-network
     container_name: ecommerce
     volumes:
-      - .:/var/www/group
+      - ./backend:/app   
+
+networks:
+  app-network:
+    driver: bridge
