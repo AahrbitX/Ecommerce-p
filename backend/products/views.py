@@ -276,3 +276,13 @@ class OrderCreateView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
   
+    def get(self, request):
+
+        try:
+            user = request.user
+            orders = Order.objects.filter(user=user).order_by('-ordered_at')  # Fetch orders for the user
+            serializer = OrderSerializer(orders, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except ValueError as e:
+            return Response({"status": "FAILURE", "error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+  
