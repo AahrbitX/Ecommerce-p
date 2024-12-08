@@ -6,17 +6,37 @@ from rest_framework.response import Response
 from rest_framework import status
 from products.models import Product
 from products.handlers import ProductHandler,CartHandler,AddressHandler,OrderHandler
-from rest_framework.permissions import IsAuthenticated
-
- 
-
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from common.backends import CookieJWTAuthentication
+from rest_framework.decorators import authentication_classes, permission_classes
+import logging
+logger = logging.getLogger('custom_logger')
 """code follows structured pattern kindly retrack to understand"""
+from functools import wraps
+
+
 class ProductAPIView(APIView):
+    authentication_classes = [CookieJWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    
+    def get_permissions(self):
+        """
+        Override get_permissions to apply dynamic permission classes
+        based on the HTTP method.
+        """
+        if self.request.method == "GET":
+            return [AllowAny()]
+        return super().get_permissions()  
+
+    def get_authenticators(self):
+        if self.request.method == "GET":
+            return []
+        return super().get_authenticators()
     
     def get(self, request, product_id=None):
         if product_id:
             product = get_object_or_404(Product, product_id=product_id)
-            if not products.exists():
+            if not product:
              return Response(
                 {"message": "No products are available"},
                 status=status.HTTP_200_OK
@@ -33,8 +53,10 @@ class ProductAPIView(APIView):
             )
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
+   
+
     def post(self, request):
+        logger.info(f"Authenticated user from view productss: {request.user.email} (ID: {request.user.user_id})")
         serializer = ProductSerializer(data=request.data)
         if serializer.is_valid():
             try:
@@ -65,7 +87,7 @@ class ProductAPIView(APIView):
                 {"status": "FAILURE", "error": str(e)}, status=status.HTTP_404_NOT_FOUND
             )
 
-    
+     
     def patch(self, request, product_id):
         """
         Handle partial updates to an existing product.
@@ -102,6 +124,8 @@ class ProductAPIView(APIView):
     
 
 class CategoryView(generics.ListCreateAPIView):
+    authentication_classes = [CookieJWTAuthentication]
+    permission_classes = [IsAuthenticated]
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     
@@ -110,12 +134,12 @@ class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
-
 class CartView(APIView):
    permission_classes = [IsAuthenticated]
+   authentication_classes = [CookieJWTAuthentication]
+    
    def post(self,request,*args,**kwargs):
-
-       
+       logger.info(f"Authenticated user from views: {request.user.email} (ID: {request.user.user_id})")
        result=CartHandler.add_cart(request)
        if result["status"] == "SUCCESS":
             return Response(
@@ -146,7 +170,7 @@ class CartView(APIView):
             {'error': 'User ID is required to retrieve cart items.'}, 
             status=status.HTTP_400_BAD_REQUEST
         )
-     
+ 
    def delete(self, request, *args, **kwargs):
         cart_id = request.data.get("cart_id")
         
@@ -171,6 +195,8 @@ class CartView(APIView):
             )
 
 class AddressCreateView(APIView):
+    authentication_classes = [CookieJWTAuthentication]
+    permission_classes = [IsAuthenticated]
     '''Used Serializer Method and handler for DB logic'''
     def post(self, request):
         serializer = AddressSerializer(data=request.data)
@@ -231,6 +257,8 @@ class AddressCreateView(APIView):
 
 
 class OrderCreateView(APIView):
+    authentication_classes = [CookieJWTAuthentication]
+    permission_classes = [IsAuthenticated]
     def post(self, request):
         try:
             order_handler = OrderHandler.create_order(request)
@@ -247,4 +275,14 @@ class OrderCreateView(APIView):
                 {"status": "FAILURE", "error": str(e)},
                 status=status.HTTP_400_BAD_REQUEST
             )
+  
+    def get(self, request):
+
+        try:
+            user = request.user
+            orders = Order.objects.filter(user=user).order_by('-ordered_at')  # Fetch orders for the user
+            serializer = OrderSerializer(orders, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except ValueError as e:
+            return Response({"status": "FAILURE", "error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
   
