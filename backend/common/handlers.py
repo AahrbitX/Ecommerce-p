@@ -21,6 +21,8 @@ class CustomUserHandler:
         return user
     else:
         raise ValidationError(serializer.errors)
+
+'''Dedicated class to handle only Password reset in case user forgot'''
 class ResetPasswordHandler:
     OTP_EXPIRATION_MINUTES  = 5
     OTP_MAX_ATTEMPTS = 3

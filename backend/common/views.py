@@ -48,17 +48,52 @@ class LoginView(APIView):
             return response
         
         return Response({"detail": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
-    
+
+
 #user dashboard
-class CurrentUserView(APIView):
+class UserProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [CookieJWTAuthentication]
+    
+    def post(self, request):
+        user = request.user
+        if hasattr(user, 'userprofile'):
+            return Response({"detail": "Profile already exists."}, status=status.HTTP_400_BAD_REQUEST)
+
+        serializer = UserProfileSerializer(data=request.data)
+        if serializer.is_valid():
+            profile = serializer.save(user=user)
+            return Response(UserProfileSerializer(profile).data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def patch(self, request):
+        user = request.user
+        try:
+            profile = user.userprofile
+        except UserProfile.DoesNotExist:
+            return Response({"detail": "Profile not found."}, status=status.HTTP_404_NOT_FOUND)
+        # user_serializer = CustomUser(user, partial = True)
+        serializer = UserProfileSerializer(profile, data=request.data, partial=True)
+        if serializer.is_valid():#and user_serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class DashboardView(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [CookieJWTAuthentication]
 
     def get(self, request):
         user = request.user  
+        userprofile = UserProfile.objects.get(user=user)
         return Response({
             'user_id': str(user.user_id), 
             'email': user.email,
+            'username': userprofile.name if userprofile.name else "",
+            'Contact Number': userprofile.phone_number if userprofile.phone_number else "",
+            'Bio': userprofile.bio if userprofile.bio else "",
+            'Profile Picture': userprofile.profile_picture  if userprofile.profile_picture else ""
         })
     
 
