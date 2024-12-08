@@ -36,7 +36,7 @@ class ProductAPIView(APIView):
     def get(self, request, product_id=None):
         if product_id:
             product = get_object_or_404(Product, product_id=product_id)
-            if not products.exists():
+            if not product:
              return Response(
                 {"message": "No products are available"},
                 status=status.HTTP_200_OK
@@ -77,8 +77,7 @@ class ProductAPIView(APIView):
             {"errors": serializer.errors, "message": "Product creation failed."},
             status=status.HTTP_400_BAD_REQUEST
         )
-    # @authentication_classes([CookieJWTAuthentication])
-    # @permission_classes([IsAuthenticated])
+    
     def delete(self, request, product_id):
         try:
             result = ProductHandler.delete_product(product_id)
@@ -88,8 +87,7 @@ class ProductAPIView(APIView):
                 {"status": "FAILURE", "error": str(e)}, status=status.HTTP_404_NOT_FOUND
             )
 
-    # @authentication_classes([CookieJWTAuthentication])
-    # @permission_classes([IsAuthenticated])
+     
     def patch(self, request, product_id):
         """
         Handle partial updates to an existing product.
