@@ -3,12 +3,24 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import "./navbar.css";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Logout } from "../../api/common";
 
 const NavBar = () => {
   const { cartList } = useSelector((state) => state.cart);
   const [expand, setExpand] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
   // const [User, setUser] = useState("Geust");
+
+  const handleLogout = async (e) => {
+    try{
+      const response= Logout();
+      console.log(response);
+      alert("Logout Sucessfull");
+      
+    }catch (error){
+      console.error("Error while Logut:", error);
+    }
+  }
 
     // fixed Header
   function scrollHandler() {
@@ -108,6 +120,19 @@ const NavBar = () => {
               >
                 <span className="nav-link-label">Cart</span>
               </Link>
+            </Nav.Item>
+
+            <Nav.Item>
+            <Nav.Item>
+              <Link
+                aria-label="Logout"
+                className="navbar-link"
+                to="/"
+                onClick={() => handleLogout()}
+              >
+                <span className="nav-link-label">Logout</span>
+              </Link>
+            </Nav.Item>
             </Nav.Item>
 
             <Nav.Item className="expanded-cart">

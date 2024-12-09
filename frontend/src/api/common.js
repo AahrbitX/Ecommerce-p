@@ -9,7 +9,6 @@ export const login = async (email, password) =>{
       throw error; // Rethrow the error to be caught in the calling code
     }
 };
-
 export const SignUp = async(email,password) =>{
    const response = await apiClient.post("/common/signup/",{email,password})
    return response.data;
@@ -17,7 +16,7 @@ export const SignUp = async(email,password) =>{
 
 export const CurrentUser = async (access) => {
    try {
-     const response = await apiClient.post("/common/currentuser/", { access }); // Await the API response
+     const response = await apiClient.post("/common/currentuser/"); // Await the API response
      return response.data; // Return the `data` property from the response
    } catch (error) {
      console.error("Error fetching current user:", error); // Log errors for debugging
@@ -25,7 +24,15 @@ export const CurrentUser = async (access) => {
    }
  };
 
-
+ export const Logout = async () => { 
+  try{
+    const response =await apiClient.post("/common/logout/");
+    return response.data
+  } catch (error){ 
+    console.error("Error While Logout user: ", error);
+    throw error;
+  }
+ };
  export const SendOtp = async (email) =>{
   try {
     const response = await apiClient.post("/common/forgot-password/",{email});
@@ -36,8 +43,6 @@ export const CurrentUser = async (access) => {
     throw error;
   }
  };
-
-
  export const VerifyOTP = async (otp,newpassword) =>{
   try {
     const response = await apiClient.post("common/verify-otp/",{otp, newpassword});
