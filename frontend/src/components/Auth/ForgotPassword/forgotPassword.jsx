@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import styles from './forgotpassword';
-import { SendOtp, VerifyOTP } from '../../../api/common';
+import { SendOtp} from '../../../api/common';
+import VerifyOtp from '../VerifyOtp/verifyOtp';
 
 const ForgotPassword = ()=>{
 
     const [email, setEmail] =useState('');
-    const [otp, setOtp ] = useState('');
-    const [newPassword, setNewPassword] =useState('');
     const [error, setError] =useState('');
     const handleSendOTP = async (e) =>{
         e.preventDefault();
@@ -21,19 +20,6 @@ const ForgotPassword = ()=>{
             alert('No user Found');
         };
     }
-    const handleVerifyOtp = async (e)=>{
-        e.preventDefault();
-        setError('');
-
-        try{
-            const response = await VerifyOTP(otp,newPassword);
-            console.log(response)   
-        }
-        catch(error){
-         console.error("Worng otp:" ,error)   
-        }
-
-    }
 
     return (
         <div style={styles.container}>
@@ -43,13 +29,7 @@ const ForgotPassword = ()=>{
                 <label htmlFor="email" style={styles.label}></label>
                 <input type='email' id='email' value={email} onChange={(e)=>setEmail(e.target.value)} style={styles.input} placeholder='Enter your email'></input>
                 <button type='submit' style={styles.button}>Send OTP</button>
-                <div>
-                    <label htmlFor="otp" style={styles.label}></label>
-                    <input type="text" id='otp' value={otp} onChange={(e)=>setOtp(e.target.value)} style={styles.input} placeholder='Enter your OTP' />
-                    <label htmlFor="newpassword" style={styles.label}></label>
-                    <input type="text" id='newpassword' value={otp} onChange={(e)=>setNewPassword(e.target.value)} style={styles.input} placeholder='Enter your newpassword' />
-                    <button onClick={handleVerifyOtp} style={styles.button}>Verify & Confirm </button>
-                </div>
+                <VerifyOtp/>
             </div>
             {error && <p style={styles.error}>{error}</p>}
         </form>
