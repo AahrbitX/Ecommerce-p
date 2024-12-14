@@ -39,18 +39,27 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_ALL_ORIGINS = True
+
 ALLOWED_HOSTS = ['*']
 
-CORS_ALLOW_HEADERS = ["*"]
 CORS_ALLOW_METHODS = ["*"]
 
+CORS_ALLOW_CREDENTIALS = True 
 
 CORS_ALLOWED_ORIGINS = [
     'http://*',
     'https://*',
 ]
-
-
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
+CORS_ALLOW_HEADERS = [
+    "content-type",
+    "authorization",
+    "x-requested-with",
+    "Accept",
+    "Origin",
+    # Add other headers if necessary
+]
 
 ROOT_URLCONF = 'root.urls'
 
@@ -156,9 +165,10 @@ EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "django.core.mail.backends.smtp.Email
 EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.gmail.com")
 EMAIL_PORT = int(os.getenv("EMAIL_PORT", 587))   
 EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True").lower() in ["true", "1", "yes"]  
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "your email.com")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "maneeshmaneesh391@gmail.com")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "ufmd xzkl sgol nuxu")
-DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "youremail.com")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "maneeshmaneesh391@gmail.com")
+
 
 
 # CSRF_COOKIE_SECURE = True

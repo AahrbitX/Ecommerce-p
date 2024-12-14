@@ -25,7 +25,7 @@ class CustomUserHandler:
 '''Dedicated class to handle only Password reset in case user forgot'''
 class ResetPasswordHandler:
     OTP_EXPIRATION_MINUTES  = 5
-    OTP_MAX_ATTEMPTS = 3
+    # OTP_MAX_ATTEMPTS = 3
     OTP_EXPIRATION_TIMEFRAME = timedelta(minutes=30)
     
     @staticmethod
@@ -70,10 +70,10 @@ class ResetPasswordHandler:
             raise ValidationError("User with this email does not exist.")
 
        
-        otp_attempts = OTPModel.objects.filter(user=user, created_at__gt=timezone.now() - ResetPasswordHandler.OTP_EXPIRATION_TIMEFRAME).count()
+        # otp_attempts = OTPModel.objects.filter(user=user, created_at__gt=timezone.now() - ResetPasswordHandler.OTP_EXPIRATION_TIMEFRAME)
                                                           #otpcheck greater than created time      ->       #currenttime - 30 minutes  = check for last 30 minutes to evaluate 3 attempts
-        if otp_attempts >= ResetPasswordHandler.OTP_MAX_ATTEMPTS:
-            raise ValidationError(f"Too many OTP requests. Please try again later.")
+        # if otp_attempts >= ResetPasswordHandler.OTP_MAX_ATTEMPTS:
+        #     raise ValidationError(f"Too many OTP requests. Please try again later.")
         
         otp = ResetPasswordHandler.generate_otp()
         otp_hash = ResetPasswordHandler.hash_otp(otp)   

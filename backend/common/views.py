@@ -16,12 +16,7 @@ class SignupView(APIView):
             return Response({"message": "User registered successfully", "user": user.user_id}, status=status.HTTP_201_CREATED)
         except ValidationError as e:
             return Response(e.detail, status=status.HTTP_400_BAD_REQUEST)
-class Logout(APIView):
-    def post(self, request):
-        response = Response({"detail": "Successfully logged out"}, status=status.HTTP_200_OK)
-        response.delete_cookie('access_token')  
-
-        return response
+ 
 class LoginView(APIView):
     permission_classes = [AllowAny]
     
@@ -48,6 +43,15 @@ class LoginView(APIView):
             return response
         
         return Response({"detail": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
+
+class Logout(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [CookieJWTAuthentication]
+    def post(self, request):
+        response = Response({"detail": "Successfully logged out"}, status=status.HTTP_200_OK)
+        response.delete_cookie('access_token')
+        response.delete_cookie('refresh_token')   
+        return response
 
 
 #user dashboard
@@ -85,16 +89,21 @@ class DashboardView(APIView):
     authentication_classes = [CookieJWTAuthentication]
 
     def get(self, request):
-        user = request.user  
-        userprofile = UserProfile.objects.get(user=user)
-        return Response({
-            'user_id': str(user.user_id), 
-            'email': user.email,
-            'username': userprofile.name if userprofile.name else "",
-            'Contact Number': userprofile.phone_number if userprofile.phone_number else "",
-            'Bio': userprofile.bio if userprofile.bio else "",
-            'Profile Picture': userprofile.profile_picture  if userprofile.profile_picture else ""
-        })
+        user = request.user   
+        if user:
+            try:
+                userprofile = UserProfile.objects.get(user=user)
+            except UserProfile.DoesNotExist:
+                userprofile = None
+            return Response({
+                'user_id': str(user.user_id),
+                'email': user.email,
+                'username': userprofile.name if userprofile and userprofile.name else "",
+                'Contact Number': userprofile.phone_number if userprofile and userprofile.phone_number else "",
+                'Bio': userprofile.bio if userprofile and userprofile.bio else "",
+                'Profile Picture': userprofile.profile_picture.url if userprofile and userprofile.profile_picture else "",
+            })
+        return Response({"detail": "User not authenticated"}, status=401)
     
 
 class ForgotPasswordView(APIView):

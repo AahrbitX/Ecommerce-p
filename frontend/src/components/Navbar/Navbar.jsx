@@ -3,11 +3,26 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import "./navbar.css";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Logout } from "../../api/common";
+
 const NavBar = () => {
   const { cartList } = useSelector((state) => state.cart);
   const [expand, setExpand] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
-  // fixed Header
+  // const [User, setUser] = useState("Geust");
+
+  const handleLogout = async (e) => {
+    try{
+      const response= Logout();
+      console.log(response);
+      alert("Logout Sucessfull");
+      
+    }catch (error){
+      console.error("Error while Logut:", error);
+    }
+  }
+
+    // fixed Header
   function scrollHandler() {
     if (window.scrollY >= 100) {
       setIsFixed(true);
@@ -16,13 +31,9 @@ const NavBar = () => {
     }
   }
   window.addEventListener("scroll", scrollHandler);
-  // useEffect(()=> {
-  //   if(CartItem.length ===0) {
-  //     const storedCart = localStorage.getItem("cartItem");
-  //     setCartItem(JSON.parse(storedCart));
-  //   }
-  // },[])
+
   return (
+    
     <Navbar
       fixed="top"
       expand="md"
@@ -77,6 +88,7 @@ const NavBar = () => {
         </div>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="justify-content-end flex-grow-1 pe-3">
+
             <Nav.Item>
               <Link
                 aria-label="Go to Home Page"
@@ -109,7 +121,26 @@ const NavBar = () => {
                 <span className="nav-link-label">Cart</span>
               </Link>
             </Nav.Item>
+
+            <Nav.Item>
+            <Nav.Item>
+              <Link
+                aria-label="Logout"
+                className="navbar-link"
+                to="/"
+                onClick={() => handleLogout()}
+              >
+                <span className="nav-link-label">Logout</span>
+              </Link>
+            </Nav.Item>
+            </Nav.Item>
+
             <Nav.Item className="expanded-cart">
+            <Link
+                aria-label="Profile"
+                to="/"
+                className="profile"
+              >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -122,6 +153,10 @@ const NavBar = () => {
                   clipRule="evenodd"
                 />
               </svg>
+              {/* <getUser setUser={setUser}/> */}
+              {/* <li>{User !=="Guest"? {User}:"Guest"} </li> */}
+              </Link>
+
               <Link
                 aria-label="Go to Cart Page"
                 to="/cart"
@@ -138,6 +173,7 @@ const NavBar = () => {
                 </svg>
               </Link>
             </Nav.Item>
+
           </Nav>
         </Navbar.Collapse>
       </Container>
