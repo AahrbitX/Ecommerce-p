@@ -360,3 +360,73 @@ WARNING 2024-12-09 07:48:14,940 log Bad Request: /common/forgot-password/
 WARNING 2024-12-09 07:48:14,940 basehttp "POST /common/forgot-password/ HTTP/1.1" 400 98
 WARNING 2024-12-09 07:48:18,000 log Bad Request: /common/forgot-password/
 WARNING 2024-12-09 07:48:18,000 basehttp "POST /common/forgot-password/ HTTP/1.1" 400 98
+INFO 2024-12-10 02:44:47,448 autoreload Watching for file changes with StatReloader
+INFO 2024-12-10 18:02:16,124 basehttp "OPTIONS /common/forgot-password/ HTTP/1.1" 200 0
+WARNING 2024-12-10 18:02:16,225 log Bad Request: /common/forgot-password/
+WARNING 2024-12-10 18:02:16,257 basehttp "POST /common/forgot-password/ HTTP/1.1" 400 70
+WARNING 2024-12-10 18:02:21,669 log Bad Request: /common/forgot-password/
+WARNING 2024-12-10 18:02:21,670 basehttp "POST /common/forgot-password/ HTTP/1.1" 400 88
+INFO 2024-12-10 18:04:27,818 autoreload Watching for file changes with StatReloader
+INFO 2024-12-10 18:05:21,015 basehttp "OPTIONS /common/forgot-password/ HTTP/1.1" 200 0
+INFO 2024-12-10 18:05:24,712 basehttp "POST /common/forgot-password/ HTTP/1.1" 200 44
+INFO 2024-12-10 18:06:10,124 basehttp "OPTIONS /common/verify-otp/ HTTP/1.1" 200 0
+WARNING 2024-12-10 18:06:10,139 log Bad Request: /common/verify-otp/
+WARNING 2024-12-10 18:06:10,139 basehttp "POST /common/verify-otp/ HTTP/1.1" 400 77
+WARNING 2024-12-10 18:06:31,330 log Bad Request: /common/verify-otp/
+WARNING 2024-12-10 18:06:31,333 basehttp "POST /common/verify-otp/ HTTP/1.1" 400 77
+WARNING 2024-12-10 18:06:42,728 log Bad Request: /common/verify-otp/
+WARNING 2024-12-10 18:06:42,728 basehttp "POST /common/verify-otp/ HTTP/1.1" 400 77
+INFO 2024-12-10 18:08:49,775 autoreload Watching for file changes with StatReloader
+INFO 2024-12-10 18:09:32,082 basehttp "OPTIONS /common/forgot-password/ HTTP/1.1" 200 0
+WARNING 2024-12-10 18:09:32,501 log Bad Request: /common/forgot-password/
+WARNING 2024-12-10 18:09:32,501 basehttp "POST /common/forgot-password/ HTTP/1.1" 400 98
+INFO 2024-12-10 18:09:35,360 basehttp "POST /common/forgot-password/ HTTP/1.1" 200 44
+INFO 2024-12-10 18:09:35,462 basehttp "POST /common/forgot-password/ HTTP/1.1" 200 44
+INFO 2024-12-10 18:10:12,711 basehttp "OPTIONS /common/verify-otp/ HTTP/1.1" 200 0
+WARNING 2024-12-10 18:10:12,714 log Bad Request: /common/verify-otp/
+WARNING 2024-12-10 18:10:12,714 basehttp "POST /common/verify-otp/ HTTP/1.1" 400 77
+WARNING 2024-12-10 18:10:33,002 log Bad Request: /common/verify-otp/
+WARNING 2024-12-10 18:10:33,004 basehttp "POST /common/verify-otp/ HTTP/1.1" 400 77
+INFO 2024-12-10 18:14:22,015 autoreload Watching for file changes with StatReloader
+WARNING 2024-12-10 18:20:30,576 log Bad Request: /common/forgot-password/
+WARNING 2024-12-10 18:20:30,577 basehttp "POST /common/forgot-password/ HTTP/1.1" 400 98
+WARNING 2024-12-10 18:20:34,068 log Bad Request: /common/forgot-password/
+WARNING 2024-12-10 18:20:34,069 basehttp "POST /common/forgot-password/ HTTP/1.1" 400 98
+WARNING 2024-12-10 18:20:42,203 log Bad Request: /common/forgot-password/
+WARNING 2024-12-10 18:20:42,203 basehttp "POST /common/forgot-password/ HTTP/1.1" 400 98
+WARNING 2024-12-10 18:21:24,631 log Bad Request: /common/forgot-password/
+WARNING 2024-12-10 18:21:24,635 basehttp "POST /common/forgot-password/ HTTP/1.1" 400 98
+WARNING 2024-12-10 18:22:00,796 log Bad Request: /common/forgot-password/
+WARNING 2024-12-10 18:22:00,798 basehttp "POST /common/forgot-password/ HTTP/1.1" 400 98
+WARNING 2024-12-10 18:22:05,591 log Bad Request: /common/forgot-password/
+WARNING 2024-12-10 18:22:05,592 basehttp "POST /common/forgot-password/ HTTP/1.1" 400 98
+WARNING 2024-12-10 18:22:36,758 log Bad Request: /common/forgot-password/
+WARNING 2024-12-10 18:22:36,758 basehttp "POST /common/forgot-password/ HTTP/1.1" 400 88
+WARNING 2024-12-10 18:23:10,468 log Bad Request: /common/forgot-password/
+WARNING 2024-12-10 18:23:10,469 basehttp "POST /common/forgot-password/ HTTP/1.1" 400 98
+WARNING 2024-12-10 18:23:56,325 log Bad Request: /common/forgot-password/
+WARNING 2024-12-10 18:23:56,326 basehttp "POST /common/forgot-password/ HTTP/1.1" 400 98
+INFO 2024-12-10 18:26:47,570 autoreload Watching for file changes with StatReloader
+WARNING 2024-12-10 18:27:52,383 log Bad Request: /common/forgot-password/
+WARNING 2024-12-10 18:27:52,383 basehttp "POST /common/forgot-password/ HTTP/1.1" 400 98
+INFO 2024-12-11 02:50:23,414 autoreload Watching for file changes with StatReloader
+INFO 2024-12-11 08:09:48,884 autoreload Watching for file changes with StatReloader
+INFO 2024-12-12 17:13:16,544 autoreload Watching for file changes with StatReloader
+INFO 2024-12-13 03:43:24,291 autoreload Watching for file changes with StatReloader
+INFO 2024-12-13 08:00:49,879 autoreload Watching for file changes with StatReloader
+INFO 2024-12-14 02:50:40,809 autoreload Watching for file changes with StatReloader
+INFO 2024-12-14 05:07:57,953 autoreload /app/common/handlers.py changed, reloading.
+INFO 2024-12-14 05:07:59,637 autoreload Watching for file changes with StatReloader
+INFO 2024-12-14 05:09:57,943 autoreload Watching for file changes with StatReloader
+INFO 2024-12-14 05:11:15,433 autoreload Watching for file changes with StatReloader
+WARNING 2024-12-14 05:12:19,153 backends No token found in cookies for authentication.
+WARNING 2024-12-14 05:12:19,182 log Forbidden: /common/logout/
+WARNING 2024-12-14 05:12:19,189 basehttp "POST /common/logout/ HTTP/1.1" 403 58
+INFO 2024-12-14 05:12:46,510 basehttp "OPTIONS /common/forgot-password/ HTTP/1.1" 200 0
+INFO 2024-12-14 05:12:50,771 basehttp "POST /common/forgot-password/ HTTP/1.1" 200 44
+INFO 2024-12-14 05:13:38,752 basehttp "OPTIONS /common/verify-otp/ HTTP/1.1" 200 0
+INFO 2024-12-14 05:13:39,466 basehttp "POST /common/verify-otp/ HTTP/1.1" 200 42
+INFO 2024-12-14 05:13:52,457 basehttp "OPTIONS /common/login/ HTTP/1.1" 200 0
+INFO 2024-12-14 05:13:53,161 basehttp "POST /common/login/ HTTP/1.1" 200 321
+INFO 2024-12-14 05:14:08,768 backends Cookie Auth: User abinj2003@gmail.com (ID: cd0f8166-51fd-42e4-9b3b-3ab21b8c870e) authenticated successfully
+INFO 2024-12-14 05:14:08,769 basehttp "POST /common/logout/ HTTP/1.1" 200 36

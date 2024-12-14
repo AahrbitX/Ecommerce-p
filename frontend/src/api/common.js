@@ -43,9 +43,9 @@ export const CurrentUser = async (access) => {
     throw error;
   }
  };
- export const VerifyOTP = async (otp,newpassword) =>{
+ export const VerifyOTP = async (otp,new_password) =>{
   try {
-    const response = await apiClient.post("common/verify-otp/",{otp, newpassword});
+    const response = await apiClient.post("/common/verify-otp/",{otp,new_password});
     return response.data
   }
   catch(error){
