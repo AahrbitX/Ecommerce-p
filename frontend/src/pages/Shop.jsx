@@ -1,16 +1,36 @@
 import { Col, Container, Row } from "react-bootstrap";
+import { useEffect } from "react";
 import FilterSelect from "../components/FilterSelect";
 import SearchBar from "../components/SeachBar/SearchBar";
 import { Fragment, useState } from "react";
-import { products } from "../utils/products";
+import { product } from "../api/product";
 import ShopList from "../components/ShopList";
 import Banner from "../components/Banner/Banner";
 import useWindowScrollToTop from "../hooks/useWindowScrollToTop";
 
 const Shop = () => {
-  const [filterList, setFilterList] = useState(
-    products.filter((item) => item.category === "sofa")
-  );
+  const [filterList, setFilterList] = useState([]);
+  const [error, setError]=useState(null)
+
+  useEffect(()=>{
+    const fetchData =async()=>{
+
+    try {
+      const response = await product();
+      console.log(response.data)
+      setFilterList(response.data.filter((item)=>item.category===1))
+    }
+    catch (error){
+      console.error("Error")
+      setError("Failed to fetch products")
+    }
+    };
+
+    fetchData();
+
+  },[]);
+
+
   useWindowScrollToTop();
 
   return (
@@ -28,7 +48,7 @@ const Shop = () => {
           </Row>
         </Container>
         <Container>
-          <ShopList productItems={filterList} />
+          {error ? (<p>{error}</p>):(<ShopList productItems={filterList} />)}
         </Container>
       </section>
     </Fragment>

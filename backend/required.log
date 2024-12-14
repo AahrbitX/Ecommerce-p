@@ -430,3 +430,907 @@ INFO 2024-12-14 05:13:52,457 basehttp "OPTIONS /common/login/ HTTP/1.1" 200 0
 INFO 2024-12-14 05:13:53,161 basehttp "POST /common/login/ HTTP/1.1" 200 321
 INFO 2024-12-14 05:14:08,768 backends Cookie Auth: User abinj2003@gmail.com (ID: cd0f8166-51fd-42e4-9b3b-3ab21b8c870e) authenticated successfully
 INFO 2024-12-14 05:14:08,769 basehttp "POST /common/logout/ HTTP/1.1" 200 36
+WARNING 2024-12-14 05:58:55,380 backends No token found in cookies for authentication.
+WARNING 2024-12-14 05:58:55,384 log Forbidden: /common/logout/
+WARNING 2024-12-14 05:58:55,384 basehttp "POST /common/logout/ HTTP/1.1" 403 58
+ERROR 2024-12-14 05:59:55,799 log Internal Server Error: /api/products/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: products_product
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.13/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/usr/local/lib/python3.13/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.13/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/products/views.py", line 49, in get
+    if not products.exists():
+           ~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/query.py", line 1288, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/sql/query.py", line 660, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1542, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: products_product
+ERROR 2024-12-14 05:59:55,809 basehttp "GET /api/products/ HTTP/1.1" 500 146281
+WARNING 2024-12-14 06:01:06,830 backends No token found in cookies for authentication.
+WARNING 2024-12-14 06:01:06,832 log Forbidden: /api/products/
+WARNING 2024-12-14 06:01:06,833 basehttp "POST /api/products/ HTTP/1.1" 403 58
+INFO 2024-12-14 06:02:17,488 basehttp "POST /common/login/ HTTP/1.1" 200 321
+WARNING 2024-12-14 06:02:35,993 backends No token found in cookies for authentication.
+WARNING 2024-12-14 06:02:35,994 log Forbidden: /api/products/
+WARNING 2024-12-14 06:02:35,994 basehttp "POST /api/products/ HTTP/1.1" 403 58
+WARNING 2024-12-14 06:02:49,386 backends No token found in cookies for authentication.
+WARNING 2024-12-14 06:02:49,387 log Forbidden: /common/currentuser/
+WARNING 2024-12-14 06:02:49,387 basehttp "GET /common/currentuser/ HTTP/1.1" 403 58
+WARNING 2024-12-14 06:03:05,074 log Bad Request: /common/login/
+WARNING 2024-12-14 06:03:05,074 basehttp "POST /common/login/ HTTP/1.1" 400 32
+INFO 2024-12-14 06:03:49,308 basehttp "POST /common/login/ HTTP/1.1" 200 321
+INFO 2024-12-14 06:03:53,732 backends Cookie Auth: User abinj2003@gmail.com (ID: cd0f8166-51fd-42e4-9b3b-3ab21b8c870e) authenticated successfully
+INFO 2024-12-14 06:03:53,736 basehttp "GET /common/currentuser/ HTTP/1.1" 200 144
+INFO 2024-12-14 06:03:54,905 backends Cookie Auth: User abinj2003@gmail.com (ID: cd0f8166-51fd-42e4-9b3b-3ab21b8c870e) authenticated successfully
+INFO 2024-12-14 06:03:54,905 basehttp "GET /common/currentuser/ HTTP/1.1" 200 144
+INFO 2024-12-14 06:03:55,654 backends Cookie Auth: User abinj2003@gmail.com (ID: cd0f8166-51fd-42e4-9b3b-3ab21b8c870e) authenticated successfully
+INFO 2024-12-14 06:03:55,655 basehttp "GET /common/currentuser/ HTTP/1.1" 200 144
+INFO 2024-12-14 06:03:56,510 backends Cookie Auth: User abinj2003@gmail.com (ID: cd0f8166-51fd-42e4-9b3b-3ab21b8c870e) authenticated successfully
+INFO 2024-12-14 06:03:56,511 basehttp "GET /common/currentuser/ HTTP/1.1" 200 144
+INFO 2024-12-14 06:04:17,243 backends Cookie Auth: User abinj2003@gmail.com (ID: cd0f8166-51fd-42e4-9b3b-3ab21b8c870e) authenticated successfully
+INFO 2024-12-14 06:04:17,244 basehttp "GET /common/currentuser/ HTTP/1.1" 200 144
+INFO 2024-12-14 06:04:18,215 backends Cookie Auth: User abinj2003@gmail.com (ID: cd0f8166-51fd-42e4-9b3b-3ab21b8c870e) authenticated successfully
+INFO 2024-12-14 06:04:18,215 basehttp "GET /common/currentuser/ HTTP/1.1" 200 144
+INFO 2024-12-14 06:04:18,826 backends Cookie Auth: User abinj2003@gmail.com (ID: cd0f8166-51fd-42e4-9b3b-3ab21b8c870e) authenticated successfully
+INFO 2024-12-14 06:04:18,827 basehttp "GET /common/currentuser/ HTTP/1.1" 200 144
+INFO 2024-12-14 06:04:36,717 backends Cookie Auth: User abinj2003@gmail.com (ID: cd0f8166-51fd-42e4-9b3b-3ab21b8c870e) authenticated successfully
+INFO 2024-12-14 06:04:36,717 views Authenticated user from view productss: abinj2003@gmail.com (ID: cd0f8166-51fd-42e4-9b3b-3ab21b8c870e)
+ERROR 2024-12-14 06:04:36,784 log Internal Server Error: /api/products/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: products_category
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.13/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/usr/local/lib/python3.13/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.13/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/products/views.py", line 61, in post
+    if serializer.is_valid():
+       ~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/rest_framework/serializers.py", line 223, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/rest_framework/serializers.py", line 442, in run_validation
+    value = self.to_internal_value(data)
+  File "/usr/local/lib/python3.13/site-packages/rest_framework/serializers.py", line 499, in to_internal_value
+    validated_value = field.run_validation(primitive_value)
+  File "/usr/local/lib/python3.13/site-packages/rest_framework/relations.py", line 155, in run_validation
+    return super().run_validation(data)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/rest_framework/fields.py", line 538, in run_validation
+    value = self.to_internal_value(data)
+  File "/usr/local/lib/python3.13/site-packages/rest_framework/relations.py", line 259, in to_internal_value
+    return queryset.get(pk=data)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/query.py", line 645, in get
+    num = len(clone)
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/query.py", line 382, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/query.py", line 1928, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: products_category
+ERROR 2024-12-14 06:04:36,789 basehttp "POST /api/products/ HTTP/1.1" 500 180842
+INFO 2024-12-14 06:06:41,372 autoreload Watching for file changes with StatReloader
+WARNING 2024-12-14 06:30:49,669 log Not Found: /
+WARNING 2024-12-14 06:30:49,673 basehttp "GET / HTTP/1.1" 404 2450
+WARNING 2024-12-14 06:30:49,880 log Not Found: /favicon.ico
+WARNING 2024-12-14 06:30:49,881 basehttp "GET /favicon.ico HTTP/1.1" 404 2501
+INFO 2024-12-14 06:30:55,483 basehttp "GET /admin/ HTTP/1.1" 302 0
+INFO 2024-12-14 06:30:55,577 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4157
+INFO 2024-12-14 06:30:55,683 basehttp "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2024-12-14 06:30:55,684 basehttp "GET /static/admin/css/login.css HTTP/1.1" 200 951
+INFO 2024-12-14 06:30:55,684 basehttp "GET /static/admin/css/base.css HTTP/1.1" 200 22092
+INFO 2024-12-14 06:30:55,685 basehttp "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2024-12-14 06:30:55,685 basehttp "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2804
+INFO 2024-12-14 06:30:55,686 basehttp "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2024-12-14 06:30:55,687 basehttp "GET /static/admin/css/responsive.css HTTP/1.1" 200 17972
+INFO 2024-12-14 06:31:14,631 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4329
+INFO 2024-12-14 06:31:21,621 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4329
+INFO 2024-12-14 06:36:56,497 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4157
+ERROR 2024-12-14 06:37:08,168 log Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: django_session
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 444, in login
+    return LoginView.as_view(**defaults)(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/views/decorators/debug.py", line 143, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/auth/views.py", line 89, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/views/generic/edit.py", line 151, in post
+    return self.form_valid(form)
+           ~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/auth/views.py", line 108, in form_valid
+    auth_login(self.request, form.get_user())
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/auth/__init__.py", line 126, in login
+    request.session.cycle_key()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/sessions/backends/base.py", line 432, in cycle_key
+    self.create()
+    ~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/sessions/backends/db.py", line 70, in create
+    self._session_key = self._get_new_session_key()
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/sessions/backends/base.py", line 196, in _get_new_session_key
+    if not self.exists(session_key):
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/sessions/backends/db.py", line 63, in exists
+    return self.model.objects.filter(session_key=session_key).exists()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/query.py", line 1288, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/sql/query.py", line 660, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1542, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: django_session
+ERROR 2024-12-14 06:37:08,185 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 500 215846
+WARNING 2024-12-14 06:37:08,289 log Not Found: /favicon.ico
+WARNING 2024-12-14 06:37:08,290 basehttp "GET /favicon.ico HTTP/1.1" 404 2501
+INFO 2024-12-14 06:37:17,446 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4157
+ERROR 2024-12-14 06:45:04,922 log Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: django_session
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 444, in login
+    return LoginView.as_view(**defaults)(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/views/decorators/debug.py", line 143, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/auth/views.py", line 89, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/views/generic/edit.py", line 151, in post
+    return self.form_valid(form)
+           ~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/auth/views.py", line 108, in form_valid
+    auth_login(self.request, form.get_user())
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/auth/__init__.py", line 126, in login
+    request.session.cycle_key()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/sessions/backends/base.py", line 432, in cycle_key
+    self.create()
+    ~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/sessions/backends/db.py", line 70, in create
+    self._session_key = self._get_new_session_key()
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/sessions/backends/base.py", line 196, in _get_new_session_key
+    if not self.exists(session_key):
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/sessions/backends/db.py", line 63, in exists
+    return self.model.objects.filter(session_key=session_key).exists()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/query.py", line 1288, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/sql/query.py", line 660, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1542, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: django_session
+ERROR 2024-12-14 06:45:04,934 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 500 215846
+WARNING 2024-12-14 06:45:23,304 log Not Found: /
+WARNING 2024-12-14 06:45:23,305 basehttp "GET / HTTP/1.1" 404 2450
+INFO 2024-12-14 06:45:29,241 basehttp "GET /admin/ HTTP/1.1" 302 0
+INFO 2024-12-14 06:45:29,274 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4157
+INFO 2024-12-14 06:45:29,351 basehttp "GET /static/admin/css/base.css HTTP/1.1" 200 22092
+INFO 2024-12-14 06:45:29,355 basehttp "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2804
+INFO 2024-12-14 06:45:29,361 basehttp "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2024-12-14 06:45:29,363 basehttp "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2024-12-14 06:45:29,363 basehttp "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2024-12-14 06:45:29,363 basehttp "GET /static/admin/css/login.css HTTP/1.1" 304 0
+INFO 2024-12-14 06:45:29,364 basehttp "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+ERROR 2024-12-14 06:45:32,029 log Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: django_session
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 444, in login
+    return LoginView.as_view(**defaults)(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/views/decorators/debug.py", line 143, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/auth/views.py", line 89, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/views/generic/edit.py", line 151, in post
+    return self.form_valid(form)
+           ~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/auth/views.py", line 108, in form_valid
+    auth_login(self.request, form.get_user())
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/auth/__init__.py", line 126, in login
+    request.session.cycle_key()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/sessions/backends/base.py", line 432, in cycle_key
+    self.create()
+    ~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/sessions/backends/db.py", line 70, in create
+    self._session_key = self._get_new_session_key()
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/sessions/backends/base.py", line 196, in _get_new_session_key
+    if not self.exists(session_key):
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/sessions/backends/db.py", line 63, in exists
+    return self.model.objects.filter(session_key=session_key).exists()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/query.py", line 1288, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/sql/query.py", line 660, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1542, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: django_session
+ERROR 2024-12-14 06:45:32,036 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 500 215846
+INFO 2024-12-14 06:48:28,008 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4157
+INFO 2024-12-14 06:48:28,113 basehttp "GET /static/admin/css/responsive.css HTTP/1.1" 200 17972
+ERROR 2024-12-14 06:49:31,835 log Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: django_session
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 444, in login
+    return LoginView.as_view(**defaults)(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/views/decorators/debug.py", line 143, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/auth/views.py", line 89, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/views/generic/edit.py", line 151, in post
+    return self.form_valid(form)
+           ~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/auth/views.py", line 108, in form_valid
+    auth_login(self.request, form.get_user())
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/auth/__init__.py", line 126, in login
+    request.session.cycle_key()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/sessions/backends/base.py", line 432, in cycle_key
+    self.create()
+    ~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/sessions/backends/db.py", line 70, in create
+    self._session_key = self._get_new_session_key()
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/sessions/backends/base.py", line 196, in _get_new_session_key
+    if not self.exists(session_key):
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/sessions/backends/db.py", line 63, in exists
+    return self.model.objects.filter(session_key=session_key).exists()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/query.py", line 1288, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/sql/query.py", line 660, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1542, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: django_session
+ERROR 2024-12-14 06:49:31,846 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 500 215846
+INFO 2024-12-14 06:50:37,982 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4157
+INFO 2024-12-14 06:50:40,183 basehttp "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2024-12-14 06:50:40,227 basehttp "GET /admin/ HTTP/1.1" 200 12521
+INFO 2024-12-14 06:50:40,275 basehttp "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2024-12-14 06:50:40,287 basehttp "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2024-12-14 06:50:40,289 basehttp "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2024-12-14 06:50:53,083 basehttp "GET /admin/products/category/add/ HTTP/1.1" 200 12816
+INFO 2024-12-14 06:50:53,156 basehttp "GET /static/admin/css/forms.css HTTP/1.1" 200 8794
+INFO 2024-12-14 06:50:53,167 basehttp "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2024-12-14 06:50:53,167 basehttp "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2024-12-14 06:50:53,170 basehttp "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9097
+INFO 2024-12-14 06:50:53,173 basehttp "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2024-12-14 06:50:53,175 basehttp "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2024-12-14 06:50:53,175 basehttp "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2024-12-14 06:50:53,176 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2024-12-14 06:50:53,178 basehttp "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2024-12-14 06:50:53,179 basehttp "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2024-12-14 06:50:53,183 basehttp "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2024-12-14 06:50:53,186 basehttp "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2024-12-14 06:50:53,199 basehttp "GET /static/admin/css/widgets.css HTTP/1.1" 200 11564
+ERROR 2024-12-14 06:50:59,306 log Internal Server Error: /admin/products/category/add/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: products_category
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/admin/options.py", line 718, in wrapper
+    return self.admin_site.admin_view(view)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/admin/sites.py", line 241, in inner
+    return view(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/admin/options.py", line 1961, in add_view
+    return self.changeform_view(request, None, form_url, extra_context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "/usr/local/lib/python3.13/site-packages/django/utils/decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/admin/options.py", line 1820, in changeform_view
+    return self._changeform_view(request, object_id, form_url, extra_context)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/admin/options.py", line 1871, in _changeform_view
+    self.save_model(request, new_object, form, not add)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/contrib/admin/options.py", line 1294, in save_model
+    obj.save()
+    ~~~~~~~~^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, fields, returning_fields, raw
+    )
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/django/db/backends/sqlite3/base.py", line 354, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: products_category
+ERROR 2024-12-14 06:50:59,317 basehttp "POST /admin/products/category/add/ HTTP/1.1" 500 197368
+INFO 2024-12-14 06:51:05,860 basehttp "GET /admin/products/category/add/ HTTP/1.1" 200 12816
+INFO 2024-12-14 06:52:48,646 basehttp "POST /admin/products/category/add/ HTTP/1.1" 302 0
+INFO 2024-12-14 06:52:48,669 basehttp "GET /admin/products/category/add/ HTTP/1.1" 200 13055
+INFO 2024-12-14 06:52:48,744 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2024-12-14 06:52:48,799 basehttp "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+INFO 2024-12-14 06:54:30,217 basehttp "GET /admin/products/category/ HTTP/1.1" 200 13326
+INFO 2024-12-14 06:54:30,270 basehttp "GET /static/admin/css/changelists.css HTTP/1.1" 200 6878
+INFO 2024-12-14 06:54:30,282 basehttp "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2024-12-14 06:54:30,295 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2024-12-14 06:54:30,343 basehttp "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2024-12-14 06:54:50,800 basehttp "POST /common/login/ HTTP/1.1" 200 321
+INFO 2024-12-14 06:54:57,350 backends Cookie Auth: User abinj2003@gmail.com (ID: cd0f8166-51fd-42e4-9b3b-3ab21b8c870e) authenticated successfully
+INFO 2024-12-14 06:54:57,350 views Authenticated user from view productss: abinj2003@gmail.com (ID: cd0f8166-51fd-42e4-9b3b-3ab21b8c870e)
+WARNING 2024-12-14 06:54:57,382 log Bad Request: /api/products/
+WARNING 2024-12-14 06:54:57,383 basehttp "POST /api/products/ HTTP/1.1" 400 137
+WARNING 2024-12-14 06:55:32,227 log Bad Request: /common/signup/
+WARNING 2024-12-14 06:55:32,228 basehttp "POST /common/signup/ HTTP/1.1" 400 57
+INFO 2024-12-14 06:55:44,493 backends Cookie Auth: User abinj2003@gmail.com (ID: cd0f8166-51fd-42e4-9b3b-3ab21b8c870e) authenticated successfully
+INFO 2024-12-14 06:55:44,505 basehttp "GET /common/currentuser/ HTTP/1.1" 200 144
+INFO 2024-12-14 06:56:09,511 backends Cookie Auth: User abinj2003@gmail.com (ID: cd0f8166-51fd-42e4-9b3b-3ab21b8c870e) authenticated successfully
+INFO 2024-12-14 06:56:09,511 views Authenticated user from view productss: abinj2003@gmail.com (ID: cd0f8166-51fd-42e4-9b3b-3ab21b8c870e)
+INFO 2024-12-14 06:56:09,540 basehttp "POST /api/products/ HTTP/1.1" 201 344
+INFO 2024-12-14 06:56:28,479 basehttp "POST /common/login/ HTTP/1.1" 200 321
+INFO 2024-12-14 06:56:37,163 backends Cookie Auth: User abinj2003@gmail.com (ID: cd0f8166-51fd-42e4-9b3b-3ab21b8c870e) authenticated successfully
+INFO 2024-12-14 06:56:37,165 basehttp "GET /common/currentuser/ HTTP/1.1" 200 144
+INFO 2024-12-14 06:57:07,010 backends Cookie Auth: User abinj2003@gmail.com (ID: cd0f8166-51fd-42e4-9b3b-3ab21b8c870e) authenticated successfully
+INFO 2024-12-14 06:57:07,010 views Authenticated user from view productss: abinj2003@gmail.com (ID: cd0f8166-51fd-42e4-9b3b-3ab21b8c870e)
+INFO 2024-12-14 06:57:07,028 basehttp "POST /api/products/ HTTP/1.1" 201 344
+INFO 2024-12-14 06:57:26,345 backends Cookie Auth: User abinj2003@gmail.com (ID: cd0f8166-51fd-42e4-9b3b-3ab21b8c870e) authenticated successfully
+INFO 2024-12-14 06:57:26,346 views Authenticated user from view productss: abinj2003@gmail.com (ID: cd0f8166-51fd-42e4-9b3b-3ab21b8c870e)
+INFO 2024-12-14 06:57:26,362 basehttp "POST /api/products/ HTTP/1.1" 201 344
+INFO 2024-12-14 06:58:00,243 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 07:07:13,633 backends Cookie Auth: User abinj2003@gmail.com (ID: cd0f8166-51fd-42e4-9b3b-3ab21b8c870e) authenticated successfully
+ERROR 2024-12-14 07:07:13,736 log Internal Server Error: /api/products/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.13/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.13/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/usr/local/lib/python3.13/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.13/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+TypeError: ProductAPIView.delete() missing 1 required positional argument: 'product_id'
+ERROR 2024-12-14 07:07:13,741 basehttp "DELETE /api/products/ HTTP/1.1" 500 82306
+INFO 2024-12-14 07:33:47,460 basehttp "GET /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2024-12-14 07:33:47,503 basehttp "GET /admin/ HTTP/1.1" 200 12903
+INFO 2024-12-14 07:33:47,643 basehttp "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2024-12-14 07:33:47,643 basehttp "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2024-12-14 07:57:48,574 autoreload Watching for file changes with StatReloader
+INFO 2024-12-14 11:59:21,755 autoreload Watching for file changes with StatReloader
+INFO 2024-12-14 13:06:06,879 autoreload Watching for file changes with StatReloader
+INFO 2024-12-14 13:09:25,676 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:09:25,678 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:09:25,678 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:09:25,678 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:09:25,679 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:09:25,679 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:09:25,685 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:09:25,686 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:09:40,281 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:09:40,282 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:09:40,283 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:09:40,293 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:09:40,305 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:09:40,305 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:09:40,306 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:09:40,306 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:09:51,465 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:09:51,466 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:09:51,469 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:09:51,472 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:09:51,472 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:09:51,475 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:09:51,477 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:09:51,478 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:10:04,382 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:10:04,382 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:10:04,392 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:10:04,395 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:10:04,398 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:10:04,400 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:10:04,401 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:10:04,408 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:10:10,064 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:10:10,065 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:10:10,066 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:10:10,067 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:10:10,076 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:10:10,080 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:10:10,080 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:10:10,081 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:33:42,319 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:33:42,319 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:33:58,765 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:33:58,767 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:34:48,493 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:38:06,064 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:38:06,064 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:38:41,232 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:38:41,241 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:38:48,829 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:38:48,829 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:39:30,577 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:39:30,577 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:41:02,317 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:41:02,317 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:41:19,016 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:41:19,016 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:46:06,618 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:46:06,660 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:46:40,479 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:46:40,555 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:49:47,680 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 13:49:55,400 basehttp "GET /api/products/ HTTP/1.1" 200 1012

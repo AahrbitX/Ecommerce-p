@@ -30,7 +30,7 @@ const ProductCard = ({ title, productItem }) => {
         <ion-icon name="heart-outline"></ion-icon>
       </div>
       <div className="product-details">
-        <h3 onClick={() => handelClick()}>{productItem.productName}</h3>
+        <h3 onClick={() => handelClick()}>{productItem.name}</h3>
         <div className="rate">
           <i className="fa fa-star"></i>
           <i className="fa fa-star"></i>
@@ -38,6 +38,7 @@ const ProductCard = ({ title, productItem }) => {
           <i className="fa fa-star"></i>
           <i className="fa fa-star"></i>
         </div>
+        <div>{productItem.description}</div>
         <div className="price">
           <h4>${productItem.price}</h4>
           <button

@@ -3,7 +3,7 @@ import { products } from '../utils/products';
 
 const options = [
     { value: "sofa", label: "Sofa" },
-    { value: "chair", label: "Chair" },
+    { value: "1", label: "New products" },
     { value: "watch", label: "Watch" },
     { value: "mobile", label: "Mobile" },
     { value: "wireless", label: "Wireless" },
