@@ -1,15 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./searchbar.css";
-import { products } from "../../utils/products";
+import { product } from "../../api/product";
+// import { products } from "../../utils/products";
 // import useDebounce from "../../hooks/useDebounce";
 const SearchBar = ({ setFilterList }) => {
   const [searchWord, setSearchWord] = useState(null);
+  const [products,setProduts] =useState([]);
+  const [error,setError] = useState(null);
+
   // const debounceSearchWord = useDebounce(searchWord, 300);
+
+  useEffect(()=>{
+    const fetchProdutcs= async()=>{
+      try{
+        const response = await product();
+        setProduts(response.data);
+      }
+      catch(error){
+        console.error("Error",error);
+        setError("Error Fetching Data");
+      }
+    }
+    fetchProdutcs();
+  },[]);
   const handelChange = (input) => {
     setSearchWord(input.target.value);
     setFilterList(
       products.filter((item) =>
-        item.productName?.toLowerCase().includes(searchWord?.toLowerCase())
+        item.name?.toLowerCase().includes(searchWord?.toLowerCase())
       )
     );
   };

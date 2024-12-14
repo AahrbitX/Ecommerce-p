@@ -48,7 +48,9 @@ const Shop = () => {
           </Row>
         </Container>
         <Container>
-          {error ? (<p>{error}</p>):(<ShopList productItems={filterList} />)}
+          
+        {error ? (<p>{error}</p>):(<ShopList productItems={filterList} />)}
+          
         </Container>
       </section>
     </Fragment>

@@ -1,9 +1,10 @@
 import Select from 'react-select';
-import { products } from '../utils/products';
+import { product } from '../api/product';
+import { useEffect, useState } from 'react';
 
 const options = [
     { value: "sofa", label: "Sofa" },
-    { value: "1", label: "New products" },
+    { value: 1, label: "New products" },
     { value: "watch", label: "Watch" },
     { value: "mobile", label: "Mobile" },
     { value: "wireless", label: "Wireless" },
@@ -36,9 +37,35 @@ const customStyles = {
 };
 
 const FilterSelect = ({setFilterList}) => {
-    const handleChange = (selectedOption)=> {
-        setFilterList(products.filter(item => item.category ===selectedOption.value))
-    }
+
+    const [error, setError]=useState(null);
+    const [products, setProducts] =useState([]);
+  
+    useEffect(()=>{
+
+      const fetchProducts =async()=>{
+  
+      try {
+        const response = await product();
+        setProducts(response.data);
+      }
+      catch (error){
+        console.error("Error",error);
+        setError("Failed to fetch products");
+      }
+      };
+      fetchProducts();
+  
+    },[]);
+
+    const handleChange=(selectedOption) =>{
+        const selectedCategory =selectedOption?.value||"";
+        const filteredProducts = products.filter(
+            (item)=>item.category === selectedCategory
+        );
+        setFilterList(filteredProducts);
+    };
+    
     return (
     <Select
     options={options}
