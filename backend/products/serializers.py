@@ -5,7 +5,7 @@ from products.handlers import ProductHandler
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['name']
+        fields = ['id','name']
  
 class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:

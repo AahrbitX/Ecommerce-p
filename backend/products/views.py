@@ -1,4 +1,4 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework import generics
 from products.serializers import *
@@ -8,12 +8,34 @@ from products.models import Product
 from products.handlers import ProductHandler,CartHandler,AddressHandler,OrderHandler
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from common.backends import CookieJWTAuthentication
-from rest_framework.decorators import authentication_classes, permission_classes
 import logging
-logger = logging.getLogger('custom_logger')
-"""code follows structured pattern kindly retrack to understand"""
 from functools import wraps
+from rest_framework.exceptions import ValidationError
+logger = logging.getLogger('custom_logger')
 
+
+def role_required(allowed_roles):
+    """
+    Decorator to enforce role-based access control for API views.
+
+    Args:
+        allowed_roles (list): List of roles allowed to access the view.
+    """
+    def decorator(view_func):
+        @wraps(view_func)
+        def _wrapped_view(self, request, *args, **kwargs):
+            user = request.user
+            if not user.is_authenticated:
+                raise ValidationError({"detail": "Authentication required.", "error": "unauthenticated_user"})
+            
+            if user.role.name not in allowed_roles:
+                raise ValidationError(
+                    {"detail": "You do not have permission to perform this action.", "error": "unauthorized_user"}
+                )
+            
+            return view_func(self, request, *args, **kwargs)
+        return _wrapped_view
+    return decorator
 
 class ProductAPIView(APIView):
     authentication_classes = [CookieJWTAuthentication]
@@ -54,7 +76,8 @@ class ProductAPIView(APIView):
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
    
-
+    
+    # @role_required(["vendor", "superadmin"]) 
     def post(self, request):
         logger.info(f"Authenticated user from view productss: {request.user.email} (ID: {request.user.user_id})")
         serializer = ProductSerializer(data=request.data)
