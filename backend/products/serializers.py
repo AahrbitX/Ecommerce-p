@@ -59,3 +59,10 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ['user_id','order_id','address','order_items']
+
+class WishlistSerializer(serializers.ModelSerializer):
+    product = ProductSerializer(read_only=True)
+
+    class Meta:
+        model = Wishlist
+        fields = ['id', 'product', 'created_at']
