@@ -51,9 +51,16 @@ class ProductHandler:
     def get_filtered_products(request):
         search_query = request.query_params.get('search', None)
         ordering = request.query_params.get('ordering', None)
+        category_id = request.query_params.get('category', None)
+        min_price = request.query_params.get('min_price', None)
+        max_price = request.query_params.get('max_price', None) 
 
         products = Product.objects.filter(status=True)
-        
+        if min_price:
+          products = products.filter(price__gte=min_price)
+        if max_price:
+          products = products.filter(price__lte=max_price)
+
         if search_query:
             products = products.filter(name__icontains=search_query) | products.filter(description__icontains=search_query)
 
@@ -231,6 +238,26 @@ class AddressHandler:
             raise ValueError("Address not found or doesn't belong to the user.")
   
  
+class WishlistHandler:
+    def __init__(self, product=None, user=None):
+        self.product = product
+        self.user = user
+
+    def add_to_wishlist(self):
+
+        wishlist_item, created = Wisshlist.objects.get_or_create(user=self.user, product=self.product)
+        return wishlist_item, created
+    
+    def remove_from_wishlist(self):
+        try:
+            wishlist_item = Wishlist.objects.get(user=self.user, product=self.product)
+            wishlist_item.delete()
+            return True
+        except Wishlist.DoesNotExist:
+            return False
+    
+    def get_wishlist(self):
+        return Wishlist.objects.filter(user=self.user)
 
 # Order handler
 class OrderHandler:
@@ -269,3 +296,4 @@ class OrderHandler:
     except Exception as e:
        
         raise ValueError(f"An error occurred while creating the order: {str(e)}")
+
