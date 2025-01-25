@@ -3,12 +3,13 @@ from django.db import models
 import uuid
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, password=None):
+    def create_user(self, email, password=None, role=None):
         if not email:
             raise ValueError('Users must have an email address')
         
         user = self.model(
             email=self.normalize_email(email),
+            role=role
         )
         user.set_password(password)
         user.save(using=self._db)
