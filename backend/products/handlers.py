@@ -6,24 +6,45 @@ from products.serializers import *
 from django.db import transaction
 
 class ProductHandler:
-    @staticmethod
-    def create_product(validated_data):
+    def __init__(self, validated_data):
+        """
+        Initialize the ProductHandler with the validated data.
+        """
+        self.validated_data = validated_data
+        self.user = None
+        self.category = None
+        self.images = []
+
+    def extract_data(self):
+        """
+        Extract and validate user, category, and images from validated data.
+        """
+        self.user = self.validated_data.pop('user', None)
+        self.category = self.validated_data.pop('category', None)
+        self.images = self.validated_data.pop('images', [])
+
+        if not self.user:
+            raise ValueError("User is required to create a product.")
+        if not self.category:
+            raise ValueError("Category is required to create a product.")
+
+    def create_product(self):
+        """
+        Create a product and save associated images.
+        """
         try:
-            user = validated_data.pop('user', None)
-            category = validated_data.pop('category', None)
-            images = validated_data.pop('images', [])
+            # Extract necessary fields
+            self.extract_data()
 
-            if not user:
-                raise ValueError("User is required to create a product.")
-            if not category:
-                raise ValueError("Category is required to create a product.")
+            # Create the product
             product = Product.objects.create(
-                **validated_data, category = category, user = user
+                **self.validated_data, user=self.user, category=self.category
             )
-            if images:
-                for image in images:
-                    ProductImage.objects.create(product = product, image = image)
 
+            # Save images if provided
+            self._save_images(product)
+
+            # Prepare response data
             response_data = {
                 'product_id': product.product_id,
                 'name': product.name,
@@ -36,13 +57,19 @@ class ProductHandler:
                 'status': product.status,
                 'created_at': product.created_at,
                 'updated_at': product.updated_at,
-                'images': [img.image.url for img in product.images.all()],  #access through related name !
+                'images': [img.image.url for img in product.images.all()],
             }
 
             return response_data
-
         except Exception as e:
             raise Exception(f"An error occurred while creating the product: {e}")
+
+    def _save_images(self, product):
+        """
+        Private method to handle saving images associated with a product.
+        """
+        for image in self.images:
+            ProductImage.objects.create(product=product, image=image)
 
       
           
@@ -245,7 +272,7 @@ class WishlistHandler:
 
     def add_to_wishlist(self):
 
-        wishlist_item, created = Wisshlist.objects.get_or_create(user=self.user, product=self.product)
+        wishlist_item, created = Wishlist.objects.get_or_create(user=self.user, product=self.product)
         return wishlist_item, created
     
     def remove_from_wishlist(self):
