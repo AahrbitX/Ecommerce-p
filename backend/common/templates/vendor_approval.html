@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Application Approved</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            font-size: 24px;
+            color: #28a745;
+        }
+        .content {
+            margin-top: 20px;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #888;
+        }
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            Vendor Application Approved
+        </div>
+        
+        <div class="content">
+            <p>Dear {{ user.email }},</p>
+
+            <p>Congratulations! We are pleased to inform you that your vendor application has been approved. You are now an official vendor with us!</p>
+
+            <p>Please find the details of your approval below:</p>
+            
+            <div class="success-message">
+                <strong>Approval Status:</strong> Approved
+            </div>
+
+            <p>We look forward to working with you and supporting your business as a valued vendor.</p>
+
+            <p>If you have any questions or need assistance, please don't hesitate to reach out to us.</p>
+
+            <p>Best regards,</p>
+            <p>The Vendor Application Team</p>
+        </div>
+
+        <div class="footer">
+            <p>Thank you for joining our platform!</p>
+        </div>
+    </div>
+
+</body>
+</html>

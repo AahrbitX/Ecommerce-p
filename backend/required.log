@@ -1404,3 +1404,129 @@ INFO 2024-12-14 16:51:45,676 basehttp "GET /api/products/ HTTP/1.1" 200 1012
 INFO 2024-12-14 16:51:45,676 basehttp "GET /api/products/ HTTP/1.1" 200 1012
 INFO 2024-12-14 16:51:45,810 basehttp "GET /api/products/ HTTP/1.1" 200 1012
 INFO 2024-12-14 16:51:58,041 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 16:55:15,760 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 16:55:15,761 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 16:55:15,765 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 16:55:15,766 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 16:55:15,830 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 16:55:15,830 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 16:55:20,992 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 16:55:21,003 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 16:55:21,008 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 16:55:21,035 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 16:55:21,071 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 16:55:21,075 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 16:55:23,797 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 16:55:23,799 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 16:55:23,800 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 16:55:23,806 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 16:55:23,812 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 16:55:23,812 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 16:55:25,772 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 16:55:25,780 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 16:55:25,780 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 16:55:25,783 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 16:55:25,789 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-14 16:55:25,790 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2024-12-15 10:02:33,247 autoreload Watching for file changes with StatReloader
+INFO 2024-12-15 16:41:50,380 autoreload Watching for file changes with StatReloader
+INFO 2024-12-15 19:17:50,331 autoreload Watching for file changes with StatReloader
+INFO 2024-12-16 08:33:10,279 autoreload Watching for file changes with StatReloader
+INFO 2024-12-16 15:01:41,683 autoreload Watching for file changes with StatReloader
+INFO 2024-12-16 15:21:39,469 autoreload Watching for file changes with StatReloader
+INFO 2024-12-16 15:25:35,941 autoreload Watching for file changes with StatReloader
+INFO 2024-12-18 04:35:13,998 autoreload Watching for file changes with StatReloader
+INFO 2024-12-18 11:42:56,618 autoreload Watching for file changes with StatReloader
+INFO 2024-12-19 07:51:24,132 autoreload Watching for file changes with StatReloader
+INFO 2024-12-20 14:18:02,038 autoreload Watching for file changes with StatReloader
+INFO 2024-12-22 09:55:22,691 autoreload Watching for file changes with StatReloader
+INFO 2024-12-22 11:58:09,114 autoreload Watching for file changes with StatReloader
+INFO 2024-12-23 08:53:52,079 autoreload Watching for file changes with StatReloader
+INFO 2024-12-24 04:27:47,590 autoreload Watching for file changes with StatReloader
+INFO 2024-12-24 08:23:53,721 autoreload Watching for file changes with StatReloader
+INFO 2024-12-26 12:36:48,585 autoreload Watching for file changes with StatReloader
+INFO 2024-12-26 13:04:39,712 autoreload Watching for file changes with StatReloader
+INFO 2024-12-29 06:23:12,298 autoreload Watching for file changes with StatReloader
+INFO 2024-12-30 03:46:35,027 autoreload Watching for file changes with StatReloader
+INFO 2024-12-30 11:08:21,137 autoreload Watching for file changes with StatReloader
+INFO 2025-01-01 16:22:23,138 autoreload Watching for file changes with StatReloader
+INFO 2025-01-03 04:14:03,640 autoreload Watching for file changes with StatReloader
+INFO 2025-01-03 16:34:11,649 autoreload Watching for file changes with StatReloader
+INFO 2025-01-04 04:04:19,570 autoreload Watching for file changes with StatReloader
+INFO 2025-01-05 02:55:40,732 autoreload Watching for file changes with StatReloader
+INFO 2025-01-06 09:44:28,491 autoreload Watching for file changes with StatReloader
+INFO 2025-01-06 13:48:49,559 autoreload Watching for file changes with StatReloader
+INFO 2025-01-07 04:16:17,235 autoreload Watching for file changes with StatReloader
+INFO 2025-01-07 08:46:55,811 autoreload Watching for file changes with StatReloader
+INFO 2025-01-09 08:21:00,443 autoreload Watching for file changes with StatReloader
+INFO 2025-01-09 12:03:22,519 autoreload Watching for file changes with StatReloader
+INFO 2025-01-09 17:37:58,057 autoreload Watching for file changes with StatReloader
+INFO 2025-01-10 05:08:36,887 autoreload Watching for file changes with StatReloader
+INFO 2025-01-10 05:18:52,486 autoreload Watching for file changes with StatReloader
+INFO 2025-01-11 06:06:01,187 autoreload Watching for file changes with StatReloader
+INFO 2025-01-12 06:21:39,206 autoreload Watching for file changes with StatReloader
+INFO 2025-01-12 15:45:31,034 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2025-01-12 15:45:31,031 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2025-01-12 15:45:31,038 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2025-01-12 15:45:31,038 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2025-01-12 15:45:31,038 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2025-01-12 15:45:31,038 basehttp "GET /api/products/ HTTP/1.1" 200 1012
+INFO 2025-01-13 11:59:23,796 autoreload Watching for file changes with StatReloader
+INFO 2025-01-13 12:34:15,923 autoreload Watching for file changes with StatReloader
+INFO 2025-01-13 16:57:58,442 autoreload Watching for file changes with StatReloader
+INFO 2025-01-14 03:44:42,389 autoreload Watching for file changes with StatReloader
+INFO 2025-01-14 08:57:46,180 autoreload Watching for file changes with StatReloader
+INFO 2025-01-14 13:48:45,679 autoreload Watching for file changes with StatReloader
+INFO 2025-01-14 17:36:56,225 autoreload Watching for file changes with StatReloader
+INFO 2025-01-14 17:47:20,585 autoreload Watching for file changes with StatReloader
+INFO 2025-01-15 02:11:39,002 autoreload Watching for file changes with StatReloader
+INFO 2025-01-15 07:34:36,444 autoreload Watching for file changes with StatReloader
+WARNING 2025-01-15 09:15:18,947 log Not Found: /blog/
+WARNING 2025-01-15 09:15:18,961 basehttp "GET /blog/ HTTP/1.1" 404 2485
+WARNING 2025-01-15 09:15:19,018 log Not Found: /favicon.ico
+WARNING 2025-01-15 09:15:19,018 basehttp "GET /favicon.ico HTTP/1.1" 404 2503
+INFO 2025-01-15 12:09:09,630 autoreload Watching for file changes with StatReloader
+INFO 2025-01-15 14:06:52,288 autoreload Watching for file changes with StatReloader
+INFO 2025-01-16 08:25:33,829 autoreload Watching for file changes with StatReloader
+INFO 2025-01-16 19:56:06,530 autoreload Watching for file changes with StatReloader
+INFO 2025-01-17 07:38:13,352 autoreload Watching for file changes with StatReloader
+INFO 2025-01-17 08:56:16,987 autoreload Watching for file changes with StatReloader
+INFO 2025-01-17 13:36:33,141 autoreload Watching for file changes with StatReloader
+INFO 2025-01-17 19:55:34,718 autoreload Watching for file changes with StatReloader
+INFO 2025-01-17 20:40:32,447 autoreload Watching for file changes with StatReloader
+INFO 2025-01-20 02:33:29,713 autoreload Watching for file changes with StatReloader
+INFO 2025-01-20 13:03:14,467 autoreload Watching for file changes with StatReloader
+INFO 2025-01-20 15:46:59,651 autoreload Watching for file changes with StatReloader
+INFO 2025-01-21 03:55:56,956 autoreload Watching for file changes with StatReloader
+INFO 2025-01-21 07:12:32,765 autoreload Watching for file changes with StatReloader
+INFO 2025-01-21 09:13:01,654 autoreload Watching for file changes with StatReloader
+INFO 2025-01-21 15:39:32,087 autoreload Watching for file changes with StatReloader
+INFO 2025-01-22 06:04:52,891 autoreload Watching for file changes with StatReloader
+INFO 2025-01-22 10:20:29,795 autoreload Watching for file changes with StatReloader
+INFO 2025-01-22 15:23:08,197 autoreload Watching for file changes with StatReloader
+INFO 2025-01-23 03:55:52,148 autoreload Watching for file changes with StatReloader
+INFO 2025-01-23 04:16:46,549 autoreload Watching for file changes with StatReloader
+INFO 2025-01-23 14:10:53,037 autoreload Watching for file changes with StatReloader
+INFO 2025-01-23 14:58:31,970 autoreload Watching for file changes with StatReloader
+INFO 2025-01-24 04:01:10,492 autoreload Watching for file changes with StatReloader
+INFO 2025-01-24 07:16:45,391 autoreload Watching for file changes with StatReloader
+INFO 2025-01-24 08:00:21,180 autoreload Watching for file changes with StatReloader
+INFO 2025-01-24 09:43:03,915 autoreload Watching for file changes with StatReloader
+INFO 2025-01-24 10:20:26,020 autoreload Watching for file changes with StatReloader
+INFO 2025-01-24 15:07:31,566 autoreload Watching for file changes with StatReloader
+INFO 2025-01-24 15:09:18,624 autoreload Watching for file changes with StatReloader
+INFO 2025-01-24 16:25:11,844 autoreload Watching for file changes with StatReloader
+INFO 2025-01-24 17:38:18,932 autoreload Watching for file changes with StatReloader
+INFO 2025-01-24 23:07:00,364 autoreload Watching for file changes with StatReloader
+INFO 2025-01-25 00:13:37,899 autoreload Watching for file changes with StatReloader
+INFO 2025-01-25 02:26:50,125 autoreload Watching for file changes with StatReloader
+INFO 2025-01-25 07:10:59,522 autoreload Watching for file changes with StatReloader
+INFO 2025-01-25 07:45:44,628 autoreload Watching for file changes with StatReloader
+INFO 2025-01-25 08:26:09,843 autoreload Watching for file changes with StatReloader
+INFO 2025-01-25 09:01:44,650 autoreload Watching for file changes with StatReloader
+INFO 2025-01-25 09:58:43,037 autoreload Watching for file changes with StatReloader
+WARNING 2025-01-25 09:59:26,069 backends No token found in cookies for authentication.
+WARNING 2025-01-25 09:59:26,071 log Forbidden: /common/logout/
+WARNING 2025-01-25 09:59:26,072 basehttp "POST /common/logout/ HTTP/1.1" 403 58
+INFO 2025-01-25 15:42:29,805 autoreload Watching for file changes with StatReloader
+INFO 2025-01-25 17:52:41,299 autoreload Watching for file changes with StatReloader

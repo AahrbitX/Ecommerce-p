@@ -1,15 +1,10 @@
 import { useEffect, useState } from "react";
 import "./searchbar.css";
 import { product } from "../../api/product";
-// import { products } from "../../utils/products";
-// import useDebounce from "../../hooks/useDebounce";
 const SearchBar = ({ setFilterList }) => {
   const [searchWord, setSearchWord] = useState(null);
   const [products,setProduts] =useState([]);
   const [error,setError] = useState(null);
-
-  // const debounceSearchWord = useDebounce(searchWord, 300);
-
   useEffect(()=>{
     const fetchProdutcs= async()=>{
       try{
