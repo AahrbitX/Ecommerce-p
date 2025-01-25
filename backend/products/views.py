@@ -61,7 +61,7 @@ class ProductAPIView(APIView):
         serializer = ProductSerializer(data=request.data)
         if serializer.is_valid():
             try:
-                product_data = ProductHandler.create_product(serializer.validated_data)
+                product_data = ProductHandler(validated_data=serializer.validated_data).create_product()
                 return Response(
                     {
                         "data": product_data, 

@@ -9,7 +9,10 @@ from common.handlers import CustomUserHandler, ResetPasswordHandler, VendorAppli
 from rest_framework.exceptions import ValidationError
 from common.backends import CookieJWTAuthentication
 from rest_framework.permissions import IsAdminUser
+from django.shortcuts import get_object_or_404
+import logging
 
+logger = logging.getLogger(__name__)
 
 
 class SignupView(APIView):
@@ -131,9 +134,10 @@ class VendorApplicationCreateView(APIView):
 
     def post(self, request):
         data = request.data
+        user = request.user
         try:
             handler = VendorApplicationHandler(data=data)
-            detail_message, application_id = handler.create_vendor_application()
+            detail_message, application_id = handler.create_vendor_application(user=request.user)
             return Response(
                 {"detail": detail_message, "application_id": application_id}, 
                 status=status.HTTP_201_CREATED
@@ -142,6 +146,41 @@ class VendorApplicationCreateView(APIView):
             return Response({"detail": e.detail}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
+
+    def get(self, request):
+        try:
+            store_id = request.query_params.get('store_id')
+            if not store_id:
+                return Response(
+                    {
+                        'data': "nothin",
+                        'status': status.HTTP_201_CREATED,
+                        'error': "store_id is required",
+                    
+                    },status=status.HTTP_201_CREATED    
+                )
+            store = get_object_or_404(VendorStore, store_id=store_id)
+            serializer = VendorStoreSerializer(store)
+            return Response(
+                    {
+                        'data': serializer.data,
+                        'status': status.HTTP_200_OK,
+                        'message': "success"
+                    },
+                    status=status.HTTP_200_OK
+                )
+        except Exception as e:
+            logger.exception(f"Exception in RetrieveStoreDetails: error: {e}")
+            return Response(
+                {
+                    'status': status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    'message': "Internal Server Error",
+                    'data': {}
+                },
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            ) 
+
         
 class ApproveVendorApplicationView(APIView):
     permission_classes = [IsAdminUser]
