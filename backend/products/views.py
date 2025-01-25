@@ -1,19 +1,41 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework import generics
 from products.serializers import *
 from rest_framework.response import Response
 from rest_framework import status
 from products.models import Product
-from products.handlers import ProductHandler,CartHandler,AddressHandler,OrderHandler
+from products.handlers import ProductHandler, CartHandler, AddressHandler, OrderHandler, WishlistHandler
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from common.backends import CookieJWTAuthentication
-from rest_framework.decorators import authentication_classes, permission_classes
 import logging
-logger = logging.getLogger('custom_logger')
-"""code follows structured pattern kindly retrack to understand"""
 from functools import wraps
+from rest_framework.exceptions import ValidationError
+logger = logging.getLogger('custom_logger')
 
+
+def role_required(allowed_roles):
+    """
+    Decorator to enforce role-based access control for API views.
+
+    Args:
+        allowed_roles (list): List of roles allowed to access the view.
+    """
+    def decorator(view_func):
+        @wraps(view_func)
+        def _wrapped_view(self, request, *args, **kwargs):
+            user = request.user
+            if not user.is_authenticated:
+                raise ValidationError({"detail": "Authentication required.", "error": "unauthenticated_user"})
+            
+            if user.role.name not in allowed_roles:
+                raise ValidationError(
+                    {"detail": "You do not have permission to perform this action.", "error": "unauthorized_user"}
+                )
+            
+            return view_func(self, request, *args, **kwargs)
+        return _wrapped_view
+    return decorator
 
 class ProductAPIView(APIView):
     authentication_classes = [CookieJWTAuthentication]
@@ -33,34 +55,13 @@ class ProductAPIView(APIView):
             return []
         return super().get_authenticators()
     
-    def get(self, request, product_id=None):
-        if product_id:
-            product = get_object_or_404(Product, product_id=product_id)
-            if not product:
-             return Response(
-                {"message": "No products are available"},
-                status=status.HTTP_200_OK
-             )
-            serializer = ProductSerializer(product)
-            return Response(
-                {"data":serializer.data},status=status.HTTP_200_OK)
-
-        products = ProductHandler.get_filtered_products(request)
-        if not products.exists():
-            return Response(
-                {"message": "No products are available"},
-                status=status.HTTP_200_OK
-            )
-        serializer = ProductSerializer(products, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-   
-
+    #@role_required(["vendor", "superadmin"]) 
     def post(self, request):
         logger.info(f"Authenticated user from view productss: {request.user.email} (ID: {request.user.user_id})")
         serializer = ProductSerializer(data=request.data)
         if serializer.is_valid():
             try:
-                product_data = ProductHandler.create_product(serializer.validated_data)
+                product_data = ProductHandler(validated_data=serializer.validated_data).create_product()
                 return Response(
                     {
                         "data": product_data, 
@@ -121,7 +122,29 @@ class ProductAPIView(APIView):
                     "message": "An unexpected error occurred while updating the product."
                 },
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
+
+class ProductListView(APIView):
+      
+      def get(self, request, product_id=None):
+        if product_id:
+            product = get_object_or_404(Product, product_id=product_id)
+            if not product:
+             return Response(
+                {"message": "No products are available"},
+                status=status.HTTP_200_OK
+             )
+            serializer = ProductSerializer(product)
+            return Response(
+                {"data":serializer.data},status=status.HTTP_200_OK)
+
+        products = ProductHandler.get_filtered_products(request)
+        if not products.exists():
+            return Response(
+                {"message": "No products are available"},
+                status=status.HTTP_200_OK
+            )
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class CategoryView(generics.ListCreateAPIView):
     authentication_classes = [CookieJWTAuthentication]
@@ -254,6 +277,50 @@ class AddressCreateView(APIView):
             return Response({"status": "FAILURE", "error": str(e)}, status=status.HTTP_404_NOT_FOUND)
 
 
+class WishlistAPIView(APIView):
+    authentication_classes = [CookieJWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        product_id = request.data.get('product_id')
+        try:
+            product = Product.objects.get(product_id=product_id)
+        except Product.DoesNotExist:
+            return Response({'detail': 'Product not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        handler = WishlistHandler(user=request.user, product=product)
+        wishlist_item, created = handler.add_to_wishlist()
+
+        if created:
+            return Response({'detail': 'Product added to wishlist'}, status=status.HTTP_201_CREATED)
+        else:
+            return Response({'detail': 'Product already in wishlist'}, status=status.HTTP_400_BAD_REQUEST)
+    
+
+    def delete(self, request, *args, **kwargs):
+        """Remove a product from the wishlist."""
+        product_id = request.data.get('product_id')
+        try:
+            product = Product.objects.get(product_id=product_id)
+        except Product.DoesNotExist:
+            return Response({'detail': 'Product not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        handler = WishlistHandler(user=request.user, product=product)
+        deleted = handler.remove_from_wishlist()
+
+        if deleted:
+            return Response({'detail': 'Product removed from wishlist'}, status=status.HTTP_200_OK)
+        else:
+            return Response({'detail': 'Product not found in wishlist'}, status=status.HTTP_400_BAD_REQUEST)
+        
+    
+    def get(self, request, *args, **kwargs):
+        """Retrieve all products in the user's wishlist."""
+        handler = WishlistHandler(user=request.user)
+        wishlist_items = handler.get_wishlist()
+        
+        serializer = WishlistSerializer(wishlist_items, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class OrderCreateView(APIView):

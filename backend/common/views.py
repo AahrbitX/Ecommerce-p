@@ -5,9 +5,15 @@ from django.contrib.auth import authenticate
 from common.serializers import *
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated,AllowAny
-from common.handlers import CustomUserHandler, ResetPasswordHandler 
+from common.handlers import CustomUserHandler, ResetPasswordHandler, VendorApplicationHandler
 from rest_framework.exceptions import ValidationError
 from common.backends import CookieJWTAuthentication
+from rest_framework.permissions import IsAdminUser
+from django.shortcuts import get_object_or_404
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 class SignupView(APIView):
     def post(self, request):
@@ -121,3 +127,99 @@ class VerifyOtpView(APIView):
             return Response(result)
         except ValidationError as e:
             return Response({"error": str(e)}, status=400)
+
+class VendorApplicationCreateView(APIView):
+    authentication_classes = [CookieJWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        data = request.data
+        user = request.user
+        try:
+            handler = VendorApplicationHandler(data=data)
+            detail_message, application_id = handler.create_vendor_application(user=request.user)
+            return Response(
+                {"detail": detail_message, "application_id": application_id}, 
+                status=status.HTTP_201_CREATED
+            )
+        except ValidationError as e:
+            return Response({"detail": e.detail}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
+
+    def get(self, request):
+        try:
+            store_id = request.query_params.get('store_id')
+            if not store_id:
+                return Response(
+                    {
+                        'data': "nothin",
+                        'status': status.HTTP_201_CREATED,
+                        'error': "store_id is required",
+                    
+                    },status=status.HTTP_201_CREATED    
+                )
+            store = get_object_or_404(VendorStore, store_id=store_id)
+            serializer = VendorStoreSerializer(store)
+            return Response(
+                    {
+                        'data': serializer.data,
+                        'status': status.HTTP_200_OK,
+                        'message': "success"
+                    },
+                    status=status.HTTP_200_OK
+                )
+        except Exception as e:
+            logger.exception(f"Exception in RetrieveStoreDetails: error: {e}")
+            return Response(
+                {
+                    'status': status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    'message': "Internal Server Error",
+                    'data': {}
+                },
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            ) 
+
+        
+class ApproveVendorApplicationView(APIView):
+    permission_classes = [IsAdminUser]
+    authentication_classes = [CookieJWTAuthentication]
+
+    def post(self, request, application_id):
+        try:
+            application = VendorApplication.objects.get(vendor_application_id=application_id)
+            handler = VendorApplicationHandler(application=application)
+            detail_message = handler.approve_application()
+            return Response(
+                {"detail": detail_message, "message": "Your Application is Approved"}, 
+                status=status.HTTP_200_OK
+            )
+        except VendorApplication.DoesNotExist:
+            return Response({"detail": "Application not found."}, status=status.HTTP_404_NOT_FOUND)
+        except ValidationError as e:
+            return Response({"detail": e.detail}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class RejectVendorApplicationView(APIView):
+    permission_classes = [IsAdminUser]
+    authentication_classes = [CookieJWTAuthentication]
+
+    def post(self, request, application_id):
+        try:
+            application = VendorApplication.objects.get(vendor_application_id=application_id)
+            handler = VendorApplicationHandler(application=application)
+            rejection_reason = request.data.get('rejection_reason')
+            detail_message = handler.reject_application(rejection_reason)
+            return Response(
+                {"detail": detail_message, "message": "Your Application is Rejected"}, 
+                status=status.HTTP_200_OK
+            )
+        except VendorApplication.DoesNotExist:
+            return Response({"detail": "Application not found."}, status=status.HTTP_404_NOT_FOUND)
+        except ValidationError as e:
+            return Response({"detail": e.detail}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
