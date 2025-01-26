@@ -4,14 +4,19 @@ from pathlib import Path
 from datetime import timedelta
 BASE_DIR = Path(__file__).resolve().parent.parent
 from dotenv import load_dotenv
+import environ
+
 load_dotenv()
 
+env = environ.Env()
+environ.Env.read_env() 
+ 
 SECRET_KEY = 'django-insecure-hvo8u$w_p)z*gsd(%&lo9trxo=s^*vkp+u)&ctf)$6!#rq@(th'
  
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
+  
  
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -83,10 +88,21 @@ WSGI_APPLICATION = 'root.wsgi.application'
 
  
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': env('DB_ENGINE', default='django.db.backends.mysql'),
+        'NAME': env('DB_NAME', default='ecommerce'),
+        'USER': env('DB_USER', default='root'),
+        'PASSWORD': env('DB_PASSWORD', default='maneesh632765'),
+        'HOST': env('DB_HOST', default='db'),
+        'PORT': env('DB_PORT', default='3306'),
     }
 }
 
