@@ -1,0 +1,444 @@
+{
+	"info": {
+		"_postman_id": "8162049e-c0be-4664-aeaa-766f117e07cd",
+		"name": "Ecommerce local",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "38445254"
+	},
+	"item": [
+		{
+			"name": "1.Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"m@gmail.com\",\n    \"password\": \"admin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/common/login/"
+			},
+			"response": []
+		},
+		{
+			"name": "Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"maneesh@gmail.com\",\n    \"password\":\"admin\"\n     \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/common/signup/"
+			},
+			"response": []
+		},
+		{
+			"name": "user-profile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Johnathan Doe\",\n    \"bio\": \"bio.\",\n    \"phone_number\": \"9876543211\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/common/user-profile/"
+			},
+			"response": []
+		},
+		{
+			"name": "4. Current user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8000/common/currentuser/"
+			},
+			"response": []
+		},
+		{
+			"name": "Categories ",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"MOBILES\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/api/categories/"
+			},
+			"response": []
+		},
+		{
+			"name": "2.Create Products",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user",
+							"value": "afd66935-4fd7-4e54-bb60-98c2be71b302",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Headphone",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "This is a new product",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "500",
+							"type": "text"
+						},
+						{
+							"key": "discount_price",
+							"value": "300",
+							"type": "text"
+						},
+						{
+							"key": "category",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "rating",
+							"value": "4",
+							"type": "text"
+						},
+						{
+							"key": "stock",
+							"value": "20",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "images",
+							"type": "file",
+							"src": [
+								"postman-cloud:///1efa95cf-6085-4000-a6aa-8cced23c155f",
+								"postman-cloud:///1efa95d0-38ad-4ea0-b9cb-d4d9766eaf9d"
+							]
+						}
+					]
+				},
+				"url": "http://localhost:8000/api/products/"
+			},
+			"response": []
+		},
+		{
+			"name": "3. Edit product",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Wireless Headphone\",\n  \"description\": \"High-quality wireless headphones with noise-cancellation345\",\n  \"price\": 199.99,\n  \"discount_price\": 149.99,\n  \"category\": \"1\",\n  \"rating\": 4.5,\n  \"stock\": 50,\n  \"status\": \"1\"\n}\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/api/products/4156eda8-6cba-4537-8137-a491cc5f029f/"
+			},
+			"response": []
+		},
+		{
+			"name": "GET All Products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8000/api/product-list/"
+			},
+			"response": []
+		},
+		{
+			"name": "5 .Create cart items",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyMzQ1ODQ2LCJpYXQiOjE3MzIzNDQwNDYsImp0aSI6ImM2YmFhYWMwY2YyMTQ2ZjZhZTY5ZGUwODQ2ZDkxYTdlIiwidXNlcl9pZCI6ImE2ZGY1OGIzLWYwMTQtNDk2YS1iZTQzLTIzYzkzOWZlZjlhMyJ9.iKehr39d5efErT5-pIzYQZ3ZTxX2xPVkWZZCZ_37g_g",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"product_id\":\"ac3a26e7-04b3-4979-83a7-b84d032b9b93\",\n    \"user_id\":\"f72a03a6-f25c-47d0-916f-6f90fe9d7318\",\n    \"quantity\":\"3\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/api/cart/"
+			},
+			"response": []
+		},
+		{
+			"name": "6. Cart",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyMzQ1NzExLCJpYXQiOjE3MzIzNDM5MTEsImp0aSI6ImY2ZGY3NzE5ZDAzYjQwZTlhYzFhY2QwYTdmNjZkZmFkIiwidXNlcl9pZCI6ImE2ZGY1OGIzLWYwMTQtNDk2YS1iZTQzLTIzYzkzOWZlZjlhMyJ9.si0mRXGeWnVLuJPkWL4djpHb8lymovf7Y3uiYn8ALYc",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cart_id\":\"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/api/cart/"
+			},
+			"response": []
+		},
+		{
+			"name": "Create address",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyMzQ3MDcyLCJpYXQiOjE3MzIzNDUyNzIsImp0aSI6IjhlMmI3Y2U5M2I5MzRjODFhN2RlODI0YTI1NDdmYjBmIiwidXNlcl9pZCI6ImE2ZGY1OGIzLWYwMTQtNDk2YS1iZTQzLTIzYzkzOWZlZjlhMyJ9.d2L8MHvVrXcWvcUf5anDhQMc-dB_wdqjZFTmLYQ_M9M",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"street_address\": \"123 Main St\",\n    \"city\": \"Sample City\",\n    \"state\": \"Sample State\",\n    \"postal_code\": \"12345\",\n    \"country\": \"Sample Country\"\n}\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/api/address/"
+			},
+			"response": []
+		},
+		{
+			"name": "7 .Get Address",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxODM5MzM2LCJpYXQiOjE3MzE4Mzc1MzYsImp0aSI6ImIwNWJkMTIxMTBkZjRiYjFhOWFhZjZjNTdhYjQxNTllIiwidXNlcl9pZCI6ImM2Y2I1YjcxLTY0YzUtNDJhYy1iYTRjLWE1M2YxZTc4OTIyMyJ9.NR4MEmeBlJ2f0PeNu13VhyRLoQGlCn2VAz19ion6dWs",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/api/address/2/"
+			},
+			"response": []
+		},
+		{
+			"name": "8. Create Order",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyMjg4MjQ1LCJpYXQiOjE3MzIyODY0NDUsImp0aSI6IjIxZGQ2MTk0YWZhZjQ5MWJiMTU4ZTRlNmUwNDZkMjY1IiwidXNlcl9pZCI6ImM2Y2I1YjcxLTY0YzUtNDJhYy1iYTRjLWE1M2YxZTc4OTIyMyJ9.4LFpNRd_P0glebt5ktoqy5_xhyEQL2owMIY9PKtbjNk",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"address_id\":\"1\"\n    \n}\n// products from cart is handled backend",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/api/order/"
+			},
+			"response": []
+		},
+		{
+			"name": "Order History",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8000/api/order/"
+			},
+			"response": []
+		},
+		{
+			"name": "Forgot-password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"maneeshmanu929@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/common/forgot-password/"
+			},
+			"response": []
+		},
+		{
+			"name": "verify-otp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"otp\":\"456947\",\n    \"new_password\":\"admin1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/common/verify-otp/"
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyOTA5OTM5LCJpYXQiOjE3MzI5MDgxMzksImp0aSI6IjcxZmFiYWNjYmNmNzRmZWViNDc4NGM4NDcwMTQzYzg2IiwidXNlcl9pZCI6IjI5MGI5ZWI3LWJkZTEtNGJkNC05ZmMwLTU2OWU5NjIzMDlkNSJ9._J9ezeG8qX45iuaGbmhJMGwCMz7TLICA3jsfWCXORo4",
+						"type": "text"
+					}
+				],
+				"url": "http://localhost:8000/common/logout/"
+			},
+			"response": []
+		},
+		{
+			"name": "Update role",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \n    \"role\": \"admin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/common/update-role/f72a03a6-f25c-47d0-916f-6f90fe9d7318/"
+			},
+			"response": []
+		},
+		{
+			"name": " vendorapplication",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\": \"5c7c5d41-8dbc-42be-b3d8-a79ce90ef980\",\n    \"store_name\": \"Vendor Store\",\n    \"store_address\": \"1234 Vendor St.\",\n    \"contact_number\": \"1234567890\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/common/vendor/application/"
+			},
+			"response": []
+		},
+		{
+			"name": "Approve application",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/common/vendor/application/approve/8c42b283-66b2-4ed9-b464-9b1efcd304dc/"
+			},
+			"response": []
+		},
+		{
+			"name": "reject application",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"rejection_reason\": \"Not a valid store thats why\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/common/vendor/application/reject/8c42b283-66b2-4ed9-b464-9b1efcd304dc/"
+			},
+			"response": []
+		}
+	]
+}

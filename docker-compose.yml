@@ -1,18 +1,9 @@
 version: '3.8'
 
 services:
-  frontend:
-    build:
-      context: ./frontend  
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    networks:
-      - app-network
-
   ecommerce:
     build:
-      context: ./backend   
+      context: ./   
       dockerfile: Dockerfile
     restart: always
     ports:
@@ -21,7 +12,7 @@ services:
       - app-network
     container_name: ecommerce
     volumes:
-      - ./backend:/app   
+      - ./:/app
 
 networks:
   app-network:
